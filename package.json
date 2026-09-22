@@ -1,0 +1,17 @@
+{
+  "name": "tunequest",
+  "version": "0.0.2",
+  "private": true,
+  "description": "Standalone Twitch chat TuneQuest hangman-style song guessing game.",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "tmi.js": "^1.8.5",
+    "ws": "^8.18.3"
+  }
+}

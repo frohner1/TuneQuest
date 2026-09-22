@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>TuneQuest</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: transparent;
+      color: white;
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .game {
+      width: min(1200px, 94vw);
+      padding: 32px;
+      border-radius: 24px;
+      background:
+        linear-gradient(
+          145deg,
+          rgba(12, 12, 20, 0.96),
+          rgba(28, 20, 45, 0.94)
+        );
+      border: 2px solid rgba(255, 255, 255, 0.12);
+      box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.55);
+      text-align: center;
+    }
+
+    .brand {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 0.3em;
+      opacity: 0.8;
+      margin-bottom: 12px;
+    }
+
+    .status {
+      font-size: 18px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      opacity: 0.7;
+      margin-bottom: 26px;
+    }
+
+    .song {
+      min-height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      font-family:
+        "Courier New",
+        Courier,
+        monospace;
+      font-size: clamp(30px, 5vw, 72px);
+      font-weight: 800;
+      line-height: 1.35;
+      letter-spacing: 0.06em;
+      word-break: break-word;
+      white-space: pre-wrap;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .stat {
+      min-width: 150px;
+    }
+
+    .label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      opacity: 0.55;
+      margin-bottom: 5px;
+    }
+
+    .value {
+      font-size: 25px;
+      font-weight: 800;
+    }
+
+    .message {
+      min-height: 32px;
+      margin-top: 28px;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .answer {
+      font-size: 24px;
+      margin-top: 8px;
+      opacity: 0.85;
+    }
+
+    .reveal {
+      animation: reveal 0.45s ease-out;
+    }
+
+    @keyframes reveal {
+      0% {
+        transform: scale(1.08);
+        opacity: 0.4;
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="game">
+
+    <div class="brand">
+      TUNEQUEST
+    </div>
+
+    <div
+      id="status"
+      class="status"
+    >
+      waiting for a round
+    </div>
+
+    <div
+      id="song"
+      class="song"
+    >
+      !tune
+    </div>
+
+    <div class="stats">
+
+      <div class="stat">
+        <div class="label">
+          Time
+        </div>
+
+        <div
+          id="timer"
+          class="value"
+        >
+          --
+        </div>
+      </div>
+
+      <div class="stat">
+        <div class="label">
+          Letters
+        </div>
+
+        <div
+          id="letters"
+          class="value"
+        >
+          0 / 0
+        </div>
+      </div>
+
+      <div class="stat">
+        <div class="label">
+          Max Points
+        </div>
+
+        <div
+          id="points"
+          class="value"
+        >
+          100
+        </div>
+      </div>
+
+    </div>
+
+    <div
+      id="message"
+      class="message"
+    ></div>
+
+    <div
+      id="answer"
+      class="answer"
+    ></div>
+
+  </main>
+
+  <script>
+    const statusElement =
+      document.getElementById("status");
+
+    const songElement =
+      document.getElementById("song");
+
+    const timerElement =
+      document.getElementById("timer");
+
+    const lettersElement =
+      document.getElementById("letters");
+
+    const pointsElement =
+      document.getElementById("points");
+
+    const messageElement =
+      document.getElementById("message");
+
+    const answerElement =
+      document.getElementById("answer");
+
+    function updateState(state) {
+      if (!state) {
+        return;
+      }
+
+      if (
+        state.status === "idle"
+      ) {
+        statusElement.textContent =
+          "waiting for a round";
+
+        songElement.textContent =
+          "!tune";
+
+        timerElement.textContent =
+          "--";
+
+        lettersElement.textContent =
+          "0 / 0";
+
+        pointsElement.textContent =
+          "100";
+
+        messageElement.textContent =
+          "";
+
+        answerElement.textContent =
+          "";
+
+        return;
+      }
+
+      statusElement.textContent =
+        state.allLettersRevealed
+          ? "final chance"
+          : "guess the song";
+
+      songElement.textContent =
+        state.maskedTitle || "";
+
+      timerElement.textContent =
+        `${state.remainingSeconds}s`;
+
+      lettersElement.textContent =
+        `${state.revealedUniqueLetters} / ${state.totalUniqueLetters}`;
+
+      pointsElement.textContent =
+        state.maxPoints;
+    }
+
+    function animateSong() {
+      songElement.classList.remove(
+        "reveal"
+      );
+
+      void songElement.offsetWidth;
+
+      songElement.classList.add(
+        "reveal"
+      );
+    }
+
+    function handleMessage(message) {
+      if (!message) {
+        return;
+      }
+
+      if (
+        message.type === "state"
+      ) {
+        updateState(
+          message.state
+        );
+
+        return;
+      }
+
+      if (
+        message.type === "round_started"
+      ) {
+        messageElement.textContent =
+          "guess the song title in chat with !guess";
+
+        answerElement.textContent =
+          "";
+
+        updateState(
+          message.state
+        );
+
+        return;
+      }
+
+      if (
+        message.type === "timer"
+      ) {
+        timerElement.textContent =
+          `${message.remainingSeconds}s`;
+
+        return;
+      }
+
+      if (
+        message.type === "letter_revealed"
+      ) {
+        songElement.textContent =
+          message.maskedTitle;
+
+        lettersElement.textContent =
+          `${message.revealedUniqueLetters} / ${message.totalUniqueLetters}`;
+
+        pointsElement.textContent =
+          message.maxPoints;
+
+        if (
+          message.allLettersRevealed
+        ) {
+          statusElement.textContent =
+            "final chance";
+
+          messageElement.textContent =
+            "all letters revealed — final chance!";
+        } else {
+          statusElement.textContent =
+            "guess the song";
+
+          messageElement.textContent =
+            "a letter has been revealed";
+        }
+
+        animateSong();
+
+        return;
+      }
+
+      if (
+        message.type === "round_ended"
+      ) {
+        statusElement.textContent =
+          message.reason === "guessed"
+            ? "round complete"
+            : "round over";
+
+        songElement.textContent =
+          message.answer;
+
+        timerElement.textContent =
+          "0s";
+
+        messageElement.textContent =
+          message.winner
+            ? `🎉 ${message.winner.username} guessed it!`
+            : message.reason === "skipped"
+              ? "round skipped"
+              : "time's up";
+
+        answerElement.textContent =
+          `${message.answer} — ${message.artist}`;
+
+        if (message.winner) {
+          answerElement.textContent +=
+            ` · ${message.winner.points} points`;
+        }
+
+        return;
+      }
+    }
+
+    function connect() {
+      const protocol =
+        location.protocol === "https:"
+          ? "wss:"
+          : "ws:";
+
+      const socket =
+        new WebSocket(
+          `${protocol}//${location.host}`
+        );
+
+      socket.addEventListener(
+        "open",
+        () => {
+          console.log(
+            "TuneQuest overlay connected."
+          );
+        }
+      );
+
+      socket.addEventListener(
+        "message",
+        (event) => {
+          try {
+            const message =
+              JSON.parse(
+                event.data
+              );
+
+            handleMessage(
+              message
+            );
+          } catch (error) {
+            console.error(
+              "Invalid TuneQuest message:",
+              error
+            );
+          }
+        }
+      );
+
+      socket.addEventListener(
+        "close",
+        () => {
+          console.log(
+            "Overlay disconnected. Reconnecting..."
+          );
+
+          setTimeout(
+            connect,
+            2000
+          );
+        }
+      );
+
+      socket.addEventListener(
+        "error",
+        (error) => {
+          console.error(
+            "Overlay WebSocket error:",
+            error
+          );
+        }
+      );
+    }
+
+    async function loadInitialState() {
+      try {
+        const response =
+          await fetch(
+            "/api/state"
+          );
+
+        if (!response.ok) {
+          throw new Error(
+            `HTTP ${response.status}`
+          );
+        }
+
+        const data =
+          await response.json();
+
+        updateState(data);
+      } catch (error) {
+        console.error(
+          "Unable to load TuneQuest state:",
+          error
+        );
+      }
+    }
+
+    loadInitialState();
+    connect();
+  </script>
+
+</body>
+</html>
