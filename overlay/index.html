@@ -23,7 +23,6 @@
       height: 100%;
       overflow: hidden;
       background: transparent;
-      color: white;
       font-family:
         Arial,
         Helvetica,
@@ -36,232 +35,219 @@
       justify-content: center;
     }
 
-    .game {
-      width: min(1200px, 94vw);
-      padding: 32px;
-      border-radius: 24px;
-
+    #overlay {
+      width: 1100px;
+      max-width: 95vw;
+      padding: 36px 44px;
+      color: white;
+      text-align: center;
       background:
         linear-gradient(
-          145deg,
-          rgba(12, 12, 20, 0.96),
-          rgba(28, 20, 45, 0.94)
+          135deg,
+          rgba(15, 15, 25, 0.97),
+          rgba(35, 20, 55, 0.97)
         );
-
-      border:
-        2px solid
-        rgba(255, 255, 255, 0.12);
-
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      border-radius: 24px;
       box-shadow:
-        0 20px 60px
-        rgba(0, 0, 0, 0.55);
-
-      text-align: center;
+        0 20px 60px rgba(0, 0, 0, 0.5);
     }
 
-    .brand {
-      font-size: 22px;
-      font-weight: 800;
-      letter-spacing: 0.3em;
-      opacity: 0.8;
-      margin-bottom: 12px;
+    #title {
+      margin-bottom: 8px;
+      font-size: 54px;
+      font-weight: 900;
+      letter-spacing: 8px;
     }
 
-    .status {
-      font-size: 18px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      opacity: 0.7;
-      margin-bottom: 12px;
-    }
-
-    .difficulty {
-      display: inline-block;
-      padding: 7px 14px;
-      border-radius: 999px;
+    #status {
       margin-bottom: 20px;
-
-      font-size: 12px;
-      font-weight: 800;
+      font-size: 22px;
+      font-weight: 700;
+      opacity: 0.8;
       text-transform: uppercase;
-      letter-spacing: 0.15em;
-
-      background:
-        rgba(255, 255, 255, 0.1);
-
-      border:
-        1px solid
-        rgba(255, 255, 255, 0.15);
+      letter-spacing: 3px;
     }
 
-    .song {
-      min-height: 150px;
+    #difficulty {
+      display: inline-block;
+      margin-bottom: 24px;
+      padding: 8px 18px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
 
+    #song {
+      min-height: 100px;
+      margin: 10px 0 30px;
       display: flex;
       align-items: center;
       justify-content: center;
-
-      padding: 20px;
-
-      font-family:
-        "Courier New",
-        Courier,
-        monospace;
-
-      font-size:
-        clamp(30px, 5vw, 72px);
-
+      font-size: 46px;
       font-weight: 800;
-
+      letter-spacing: 5px;
+      word-spacing: 10px;
       line-height: 1.35;
-
-      letter-spacing: 0.06em;
-
-      word-break: break-word;
-
       white-space: pre-wrap;
     }
 
-    .stats {
+    #stats {
       display: flex;
       justify-content: center;
-      gap: 30px;
-      flex-wrap: wrap;
-      margin-top: 20px;
+      gap: 50px;
+      margin-bottom: 26px;
     }
 
     .stat {
       min-width: 150px;
     }
 
-    .label {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      opacity: 0.55;
+    .stat-label {
       margin-bottom: 5px;
+      font-size: 14px;
+      font-weight: 700;
+      opacity: 0.6;
+      letter-spacing: 2px;
+      text-transform: uppercase;
     }
 
-    .value {
-      font-size: 25px;
-      font-weight: 800;
+    .stat-value {
+      font-size: 30px;
+      font-weight: 900;
     }
 
-    .message {
+    #timer {
+      font-size: 42px;
+      font-weight: 900;
+    }
+
+    #message {
       min-height: 32px;
-      margin-top: 28px;
       font-size: 20px;
       font-weight: 700;
-    }
-
-    .answer {
-      font-size: 24px;
-      margin-top: 8px;
       opacity: 0.85;
     }
 
-    .reveal {
-      animation:
-        reveal 0.45s ease-out;
+    #answer {
+      display: none;
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
     }
 
-    @keyframes reveal {
-      0% {
-        transform: scale(1.08);
-        opacity: 0.4;
-      }
+    #answer-title {
+      font-size: 34px;
+      font-weight: 900;
+    }
 
-      100% {
-        transform: scale(1);
-        opacity: 1;
-      }
+    #answer-artist {
+      margin-top: 8px;
+      font-size: 20px;
+      opacity: 0.75;
+    }
+
+    #connection {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.55);
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 12px;
+      letter-spacing: 1px;
     }
   </style>
 </head>
 
 <body>
 
-  <main class="game">
+  <div id="overlay">
 
-    <div class="brand">
+    <div id="title">
       TUNEQUEST
     </div>
 
-    <div
-      id="status"
-      class="status"
-    >
-      waiting for a round
+    <div id="status">
+      Waiting for a round
     </div>
 
-    <div
-      id="difficulty"
-      class="difficulty"
-    >
-      --
+    <div id="difficulty">
+      -
     </div>
 
-    <div
-      id="song"
-      class="song"
-    >
-      !tune
+    <div id="song">
+      Ready?
     </div>
 
-    <div class="stats">
+    <div id="stats">
 
       <div class="stat">
-        <div class="label">
+        <div class="stat-label">
           Time
         </div>
 
         <div
+          class="stat-value"
           id="timer"
-          class="value"
         >
-          --
+          0s
         </div>
       </div>
 
       <div class="stat">
-        <div class="label">
+        <div class="stat-label">
           Letters
         </div>
 
         <div
+          class="stat-value"
           id="letters"
-          class="value"
         >
-          0 / 0
+          0/0
         </div>
       </div>
 
       <div class="stat">
-        <div class="label">
+        <div class="stat-label">
           Max Points
         </div>
 
         <div
+          class="stat-value"
           id="points"
-          class="value"
         >
-          100
+          0
         </div>
       </div>
 
     </div>
 
-    <div
-      id="message"
-      class="message"
-    ></div>
+    <div id="message">
+      Start a round with !tune
+    </div>
 
-    <div
-      id="answer"
-      class="answer"
-    ></div>
+    <div id="answer">
 
-  </main>
+      <div
+        id="answer-title"
+      ></div>
+
+      <div
+        id="answer-artist"
+      ></div>
+
+    </div>
+
+  </div>
+
+  <div id="connection">
+    CONNECTING
+  </div>
 
   <script>
     const statusElement =
@@ -304,75 +290,95 @@
         "answer"
       );
 
-    function updateState(state) {
+    const answerTitleElement =
+      document.getElementById(
+        "answer-title"
+      );
+
+    const answerArtistElement =
+      document.getElementById(
+        "answer-artist"
+      );
+
+    const connectionElement =
+      document.getElementById(
+        "connection"
+      );
+
+    let socket = null;
+
+    function setConnectionStatus(
+      connected
+    ) {
+      if (connected) {
+        connectionElement.textContent =
+          "CONNECTED";
+      } else {
+        connectionElement.textContent =
+          "DISCONNECTED";
+      }
+    }
+
+    function updateLetters(
+      revealedCount,
+      totalLetters
+    ) {
+      const revealed =
+        Number.isFinite(
+          Number(revealedCount)
+        )
+          ? Number(revealedCount)
+          : 0;
+
+      const total =
+        Number.isFinite(
+          Number(totalLetters)
+        )
+          ? Number(totalLetters)
+          : 0;
+
+      lettersElement.textContent =
+        `${revealed}/${total}`;
+    }
+
+    function updateRoundState(
+      state
+    ) {
       if (!state) {
         return;
       }
 
-      if (
-        state.status === "idle"
-      ) {
-        statusElement.textContent =
-          "waiting for a round";
-
-        difficultyElement.textContent =
-          "--";
-
-        songElement.textContent =
-          "!tune";
-
-        timerElement.textContent =
-          "--";
-
-        lettersElement.textContent =
-          "0 / 0";
-
-        pointsElement.textContent =
-          "100";
-
-        messageElement.textContent =
-          "";
-
-        answerElement.textContent =
-          "";
-
-        return;
-      }
-
-      statusElement.textContent =
-        state.allLettersRevealed
-          ? "final chance"
-          : "guess the song";
+      songElement.textContent =
+        state.maskedTitle || "Ready?";
 
       difficultyElement.textContent =
-        state.difficulty;
-
-      songElement.textContent =
-        state.maskedTitle || "";
+        state.difficulty
+          ? state.difficulty.toUpperCase()
+          : "-";
 
       timerElement.textContent =
-        `${state.remainingSeconds}s`;
+        `${Number(state.remainingSeconds) || 0}s`;
 
-      lettersElement.textContent =
-        `${state.revealedUniqueLetters} / ${state.totalUniqueLetters}`;
+      updateLetters(
+        state.revealedCount,
+        state.totalLetters
+      );
 
       pointsElement.textContent =
-        state.maxPoints;
+        `${Number(state.maxPoints) || 0}`;
+
+      if (state.active) {
+        statusElement.textContent =
+          "Guess the song";
+
+        messageElement.textContent =
+          "Letters are being revealed...";
+      }
     }
 
-    function animateSong() {
-      songElement.classList.remove(
-        "reveal"
-      );
-
-      void songElement.offsetWidth;
-
-      songElement.classList.add(
-        "reveal"
-      );
-    }
-
-    function handleMessage(message) {
+    function handleMessage(
+      message
+    ) {
       if (!message) {
         return;
       }
@@ -380,9 +386,23 @@
       if (
         message.type === "state"
       ) {
-        updateState(
+        updateRoundState(
           message.state
         );
+
+        if (
+          message.state &&
+          !message.state.active
+        ) {
+          statusElement.textContent =
+            "Waiting for a round";
+
+          songElement.textContent =
+            "Ready?";
+
+          messageElement.textContent =
+            "Start a round with !tune";
+        }
 
         return;
       }
@@ -391,15 +411,18 @@
         message.type ===
         "round_started"
       ) {
-        messageElement.textContent =
-          "guess the song title in chat with !guess";
-
-        answerElement.textContent =
-          "";
-
-        updateState(
+        updateRoundState(
           message.state
         );
+
+        answerElement.style.display =
+          "none";
+
+        statusElement.textContent =
+          "Guess the song";
+
+        messageElement.textContent =
+          "Letters are being revealed...";
 
         return;
       }
@@ -408,7 +431,7 @@
         message.type === "timer"
       ) {
         timerElement.textContent =
-          `${message.remainingSeconds}s`;
+          `${Number(message.remainingSeconds) || 0}s`;
 
         return;
       }
@@ -418,31 +441,13 @@
         "letter_revealed"
       ) {
         songElement.textContent =
-          message.maskedTitle;
+          message.maskedTitle ||
+          songElement.textContent;
 
-        lettersElement.textContent =
-          `${message.revealedUniqueLetters} / ${message.totalUniqueLetters}`;
-
-        pointsElement.textContent =
-          message.maxPoints;
-
-        if (
-          message.allLettersRevealed
-        ) {
-          statusElement.textContent =
-            "final chance";
-
-          messageElement.textContent =
-            "all letters revealed — final chance!";
-        } else {
-          statusElement.textContent =
-            "guess the song";
-
-          messageElement.textContent =
-            "a letter has been revealed";
-        }
-
-        animateSong();
+        updateLetters(
+          message.revealedCount,
+          message.totalLetters
+        );
 
         return;
       }
@@ -452,34 +457,65 @@
         "round_ended"
       ) {
         statusElement.textContent =
-          message.reason === "guessed"
-            ? "round complete"
-            : "round over";
-
-        difficultyElement.textContent =
-          message.difficulty;
-
-        songElement.textContent =
-          message.answer;
+          "Round Over";
 
         timerElement.textContent =
           "0s";
 
-        messageElement.textContent =
-          message.winner
-            ? `🎉 ${message.winner.username} guessed it!`
-            : message.reason === "skipped"
-              ? "round skipped"
-              : "time's up";
+        updateLetters(
+          message.state
+            ? message.state.revealedCount
+            : 0,
+          message.state
+            ? message.state.totalLetters
+            : 0
+        );
 
-        answerElement.textContent =
-          `${message.answer} — ${message.artist}`;
+        songElement.textContent =
+          message.answer || "Round Over";
+
+        pointsElement.textContent =
+          "0";
+
+        answerTitleElement.textContent =
+          message.answer || "";
+
+        answerArtistElement.textContent =
+          message.artist
+            ? message.artist
+            : "";
+
+        answerElement.style.display =
+          "block";
 
         if (
-          message.winner
+          message.reason ===
+          "all_letters_revealed"
         ) {
-          answerElement.textContent +=
-            ` · ${message.winner.points} points`;
+          messageElement.textContent =
+            "All letters revealed!";
+        } else if (
+          message.reason ===
+          "guessed"
+        ) {
+          if (
+            message.winner
+          ) {
+            messageElement.textContent =
+              `${message.winner.username} guessed it for ${message.winner.points} points!`;
+          } else {
+            messageElement.textContent =
+              "Correct guess!";
+          }
+        } else if (
+          message.reason ===
+          "skipped"
+        ) {
+          messageElement.textContent =
+            "Round skipped.";
+        } else {
+          messageElement.textContent =
+            "Time's up!";
         }
 
         return;
@@ -488,20 +524,21 @@
 
     function connect() {
       const protocol =
-        location.protocol === "https:"
+        window.location.protocol ===
+        "https:"
           ? "wss:"
           : "ws:";
 
-      const socket =
+      socket =
         new WebSocket(
-          `${protocol}//${location.host}`
+          `${protocol}//${window.location.host}`
         );
 
       socket.addEventListener(
         "open",
         () => {
-          console.log(
-            "TuneQuest overlay connected."
+          setConnectionStatus(
+            true
           );
         }
       );
@@ -520,7 +557,7 @@
             );
           } catch (error) {
             console.error(
-              "Invalid TuneQuest message:",
+              "Invalid WebSocket message:",
               error
             );
           }
@@ -530,8 +567,8 @@
       socket.addEventListener(
         "close",
         () => {
-          console.log(
-            "Overlay disconnected. Reconnecting..."
+          setConnectionStatus(
+            false
           );
 
           setTimeout(
@@ -543,10 +580,9 @@
 
       socket.addEventListener(
         "error",
-        (error) => {
-          console.error(
-            "TuneQuest WebSocket error:",
-            error
+        () => {
+          setConnectionStatus(
+            false
           );
         }
       );
@@ -565,21 +601,33 @@
           );
         }
 
-        const data =
+        const state =
           await response.json();
 
-        updateState(
-          data
+        updateRoundState(
+          state
         );
+
+        if (!state.active) {
+          statusElement.textContent =
+            "Waiting for a round";
+
+          songElement.textContent =
+            "Ready?";
+
+          messageElement.textContent =
+            "Start a round with !tune";
+        }
       } catch (error) {
         console.error(
-          "Unable to load TuneQuest state:",
+          "Failed to load initial state:",
           error
         );
       }
     }
 
     loadInitialState();
+
     connect();
   </script>
 
