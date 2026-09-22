@@ -1,84 +1,891 @@
 [
   {
-    "title": "Example Song",
-    "artist": "Example Artist",
-    "year": 2026,
+    "title": "Billie Jean",
+    "artist": "Michael Jackson",
+    "year": 1982,
     "difficulty": "easy",
-    "aliases": [
-      "example song",
-      "example"
-    ]
+    "aliases": ["billie jean"]
   },
   {
-    "title": "Midnight Drive",
-    "artist": "Example Artist",
-    "year": 2026,
+    "title": "Livin' on a Prayer",
+    "artist": "Bon Jovi",
+    "year": 1986,
     "difficulty": "easy",
-    "aliases": [
-      "midnight drive"
-    ]
+    "aliases": ["livin on a prayer", "living on a prayer"]
   },
   {
-    "title": "Summer Nights",
-    "artist": "Example Artist",
-    "year": 2026,
+    "title": "Sweet Child o' Mine",
+    "artist": "Guns N' Roses",
+    "year": 1987,
     "difficulty": "easy",
-    "aliases": [
-      "summer nights"
-    ]
+    "aliases": ["sweet child o mine", "sweet child of mine"]
   },
   {
-    "title": "Dancing in the Moonlight",
-    "artist": "Example Artist",
-    "year": 2026,
+    "title": "Smells Like Teen Spirit",
+    "artist": "Nirvana",
+    "year": 1991,
+    "difficulty": "easy",
+    "aliases": ["smells like teen spirit"]
+  },
+  {
+    "title": "Wonderwall",
+    "artist": "Oasis",
+    "year": 1995,
+    "difficulty": "easy",
+    "aliases": ["wonderwall"]
+  },
+  {
+    "title": "I Want It That Way",
+    "artist": "Backstreet Boys",
+    "year": 1999,
+    "difficulty": "easy",
+    "aliases": ["i want it that way"]
+  },
+  {
+    "title": "In the End",
+    "artist": "Linkin Park",
+    "year": 2000,
+    "difficulty": "easy",
+    "aliases": ["in the end"]
+  },
+  {
+    "title": "Mr. Brightside",
+    "artist": "The Killers",
+    "year": 2003,
+    "difficulty": "easy",
+    "aliases": ["mr brightside", "mister brightside"]
+  },
+  {
+    "title": "Seven Nation Army",
+    "artist": "The White Stripes",
+    "year": 2003,
+    "difficulty": "easy",
+    "aliases": ["seven nation army"]
+  },
+  {
+    "title": "Crazy",
+    "artist": "Gnarls Barkley",
+    "year": 2006,
+    "difficulty": "easy",
+    "aliases": ["crazy"]
+  },
+  {
+    "title": "Poker Face",
+    "artist": "Lady Gaga",
+    "year": 2008,
+    "difficulty": "easy",
+    "aliases": ["poker face"]
+  },
+  {
+    "title": "Bad Romance",
+    "artist": "Lady Gaga",
+    "year": 2009,
+    "difficulty": "easy",
+    "aliases": ["bad romance"]
+  },
+  {
+    "title": "Rolling in the Deep",
+    "artist": "Adele",
+    "year": 2010,
+    "difficulty": "easy",
+    "aliases": ["rolling in the deep"]
+  },
+  {
+    "title": "Uptown Funk",
+    "artist": "Mark Ronson ft. Bruno Mars",
+    "year": 2014,
+    "difficulty": "easy",
+    "aliases": ["uptown funk"]
+  },
+  {
+    "title": "Shape of You",
+    "artist": "Ed Sheeran",
+    "year": 2017,
+    "difficulty": "easy",
+    "aliases": ["shape of you"]
+  },
+  {
+    "title": "Blinding Lights",
+    "artist": "The Weeknd",
+    "year": 2019,
+    "difficulty": "easy",
+    "aliases": ["blinding lights"]
+  },
+  {
+    "title": "Bohemian Rhapsody",
+    "artist": "Queen",
+    "year": 1975,
+    "difficulty": "easy",
+    "aliases": ["bohemian rhapsody"]
+  },
+  {
+    "title": "Hotel California",
+    "artist": "Eagles",
+    "year": 1976,
+    "difficulty": "easy",
+    "aliases": ["hotel california"]
+  },
+  {
+    "title": "Don't Stop Believin'",
+    "artist": "Journey",
+    "year": 1981,
+    "difficulty": "easy",
+    "aliases": ["dont stop believin", "dont stop believing", "don't stop believing"]
+  },
+  {
+    "title": "Take on Me",
+    "artist": "a-ha",
+    "year": 1985,
+    "difficulty": "easy",
+    "aliases": ["take on me"]
+  },
+  {
+    "title": "Everybody Wants to Rule the World",
+    "artist": "Tears for Fears",
+    "year": 1985,
+    "difficulty": "easy",
+    "aliases": ["everybody wants to rule the world"]
+  },
+  {
+    "title": "Under Pressure",
+    "artist": "Queen & David Bowie",
+    "year": 1981,
+    "difficulty": "easy",
+    "aliases": ["under pressure"]
+  },
+  {
+    "title": "Zombie",
+    "artist": "The Cranberries",
+    "year": 1994,
+    "difficulty": "easy",
+    "aliases": ["zombie"]
+  },
+  {
+    "title": "Losing My Religion",
+    "artist": "R.E.M.",
+    "year": 1991,
+    "difficulty": "easy",
+    "aliases": ["losing my religion"]
+  },
+  {
+    "title": "No Scrubs",
+    "artist": "TLC",
+    "year": 1999,
+    "difficulty": "easy",
+    "aliases": ["no scrubs"]
+  },
+  {
+    "title": "Yeah!",
+    "artist": "Usher ft. Lil Jon & Ludacris",
+    "year": 2004,
+    "difficulty": "easy",
+    "aliases": ["yeah", "yeah ushere"]
+  },
+  {
+    "title": "Hey Ya!",
+    "artist": "Outkast",
+    "year": 2003,
+    "difficulty": "easy",
+    "aliases": ["hey ya", "hey ya!"]
+  },
+  {
+    "title": "Toxic",
+    "artist": "Britney Spears",
+    "year": 2003,
+    "difficulty": "easy",
+    "aliases": ["toxic"]
+  },
+  {
+    "title": "Complicated",
+    "artist": "Avril Lavigne",
+    "year": 2002,
+    "difficulty": "easy",
+    "aliases": ["complicated"]
+  },
+  {
+    "title": "Numb",
+    "artist": "Linkin Park",
+    "year": 2003,
+    "difficulty": "easy",
+    "aliases": ["numb"]
+  },
+  {
+    "title": "Bring Me to Life",
+    "artist": "Evanescence",
+    "year": 2003,
+    "difficulty": "easy",
+    "aliases": ["bring me to life"]
+  },
+  {
+    "title": "Sugar, We're Goin Down",
+    "artist": "Fall Out Boy",
+    "year": 2005,
     "difficulty": "medium",
-    "aliases": [
-      "dancing in the moonlight"
-    ]
+    "aliases": ["sugar were goin down", "sugar were going down"]
   },
   {
-    "title": "Running Through the City",
-    "artist": "Example Artist",
-    "year": 2026,
+    "title": "The Middle",
+    "artist": "Jimmy Eat World",
+    "year": 2001,
     "difficulty": "medium",
-    "aliases": [
-      "running through the city"
-    ]
+    "aliases": ["the middle"]
   },
   {
-    "title": "Where the Stars Remember Us",
-    "artist": "Example Artist",
-    "year": 2026,
+    "title": "Ocean Avenue",
+    "artist": "Yellowcard",
+    "year": 2003,
     "difficulty": "medium",
-    "aliases": [
-      "where the stars remember us"
-    ]
+    "aliases": ["ocean avenue"]
   },
   {
-    "title": "The Last Photograph Before Midnight",
-    "artist": "Example Artist",
-    "year": 2026,
-    "difficulty": "hard",
-    "aliases": [
-      "the last photograph before midnight"
-    ]
+    "title": "Welcome to the Black Parade",
+    "artist": "My Chemical Romance",
+    "year": 2006,
+    "difficulty": "medium",
+    "aliases": ["welcome to the black parade"]
   },
   {
-    "title": "Somewhere Between Forever and Goodbye",
-    "artist": "Example Artist",
-    "year": 2026,
-    "difficulty": "hard",
-    "aliases": [
-      "somewhere between forever and goodbye"
-    ]
+    "title": "Helena",
+    "artist": "My Chemical Romance",
+    "year": 2004,
+    "difficulty": "medium",
+    "aliases": ["helena"]
   },
   {
-    "title": "When the World Goes Quiet We Keep Dancing",
-    "artist": "Example Artist",
-    "year": 2026,
+    "title": "Misery Business",
+    "artist": "Paramore",
+    "year": 2007,
+    "difficulty": "medium",
+    "aliases": ["misery business"]
+  },
+  {
+    "title": "Decode",
+    "artist": "Paramore",
+    "year": 2008,
+    "difficulty": "medium",
+    "aliases": ["decode"]
+  },
+  {
+    "title": "I Write Sins Not Tragedies",
+    "artist": "Panic! at the Disco",
+    "year": 2005,
+    "difficulty": "medium",
+    "aliases": ["i write sins not tragedies"]
+  },
+  {
+    "title": "Dance, Dance",
+    "artist": "Fall Out Boy",
+    "year": 2005,
+    "difficulty": "medium",
+    "aliases": ["dance dance"]
+  },
+  {
+    "title": "Thnks fr th Mmrs",
+    "artist": "Fall Out Boy",
+    "year": 2007,
     "difficulty": "hard",
-    "aliases": [
-      "when the world goes quiet we keep dancing"
-    ]
+    "aliases": ["thnks fr th mmrs", "thanks for the memories"]
+  },
+  {
+    "title": "A Little Piece of Heaven",
+    "artist": "Avenged Sevenfold",
+    "year": 2007,
+    "difficulty": "hard",
+    "aliases": ["a little piece of heaven"]
+  },
+  {
+    "title": "The Kill",
+    "artist": "Thirty Seconds to Mars",
+    "year": 2005,
+    "difficulty": "medium",
+    "aliases": ["the kill"]
+  },
+  {
+    "title": "From Yesterday",
+    "artist": "Thirty Seconds to Mars",
+    "year": 2005,
+    "difficulty": "medium",
+    "aliases": ["from yesterday"]
+  },
+  {
+    "title": "Animal I Have Become",
+    "artist": "Three Days Grace",
+    "year": 2006,
+    "difficulty": "medium",
+    "aliases": ["animal i have become"]
+  },
+  {
+    "title": "I Hate Everything About You",
+    "artist": "Three Days Grace",
+    "year": 2003,
+    "difficulty": "medium",
+    "aliases": ["i hate everything about you"]
+  },
+  {
+    "title": "Diary of Jane",
+    "artist": "Breaking Benjamin",
+    "year": 2006,
+    "difficulty": "medium",
+    "aliases": ["diary of jane", "the diary of jane"]
+  },
+  {
+    "title": "Breath",
+    "artist": "Breaking Benjamin",
+    "year": 2006,
+    "difficulty": "hard",
+    "aliases": ["breath"]
+  },
+  {
+    "title": "Down with the Sickness",
+    "artist": "Disturbed",
+    "year": 2000,
+    "difficulty": "medium",
+    "aliases": ["down with the sickness"]
+  },
+  {
+    "title": "The Sound of Silence",
+    "artist": "Disturbed",
+    "year": 2015,
+    "difficulty": "medium",
+    "aliases": ["the sound of silence", "sound of silence"]
+  },
+  {
+    "title": "Duality",
+    "artist": "Slipknot",
+    "year": 2004,
+    "difficulty": "medium",
+    "aliases": ["duality"]
+  },
+  {
+    "title": "Psychosocial",
+    "artist": "Slipknot",
+    "year": 2008,
+    "difficulty": "medium",
+    "aliases": ["psychosocial"]
+  },
+  {
+    "title": "Chop Suey!",
+    "artist": "System of a Down",
+    "year": 2001,
+    "difficulty": "easy",
+    "aliases": ["chop suey", "chop suey!"]
+  },
+  {
+    "title": "Toxicity",
+    "artist": "System of a Down",
+    "year": 2001,
+    "difficulty": "medium",
+    "aliases": ["toxicity"]
+  },
+  {
+    "title": "Enter Sandman",
+    "artist": "Metallica",
+    "year": 1991,
+    "difficulty": "easy",
+    "aliases": ["enter sandman"]
+  },
+  {
+    "title": "Master of Puppets",
+    "artist": "Metallica",
+    "year": 1986,
+    "difficulty": "medium",
+    "aliases": ["master of puppets"]
+  },
+  {
+    "title": "Paranoid",
+    "artist": "Black Sabbath",
+    "year": 1970,
+    "difficulty": "easy",
+    "aliases": ["paranoid"]
+  },
+  {
+    "title": "Iron Man",
+    "artist": "Black Sabbath",
+    "year": 1970,
+    "difficulty": "easy",
+    "aliases": ["iron man"]
+  },
+  {
+    "title": "Crazy Train",
+    "artist": "Ozzy Osbourne",
+    "year": 1980,
+    "difficulty": "easy",
+    "aliases": ["crazy train"]
+  },
+  {
+    "title": "Ace of Spades",
+    "artist": "Motörhead",
+    "year": 1980,
+    "difficulty": "medium",
+    "aliases": ["ace of spades"]
+  },
+  {
+    "title": "Hells Bells",
+    "artist": "AC/DC",
+    "year": 1980,
+    "difficulty": "medium",
+    "aliases": ["hells bells", "hell's bells"]
+  },
+  {
+    "title": "Back in Black",
+    "artist": "AC/DC",
+    "year": 1980,
+    "difficulty": "easy",
+    "aliases": ["back in black"]
+  },
+  {
+    "title": "Thunderstruck",
+    "artist": "AC/DC",
+    "year": 1990,
+    "difficulty": "easy",
+    "aliases": ["thunderstruck"]
+  },
+  {
+    "title": "You Shook Me All Night Long",
+    "artist": "AC/DC",
+    "year": 1980,
+    "difficulty": "easy",
+    "aliases": ["you shook me all night long"]
+  },
+  {
+    "title": "Paradise City",
+    "artist": "Guns N' Roses",
+    "year": 1987,
+    "difficulty": "medium",
+    "aliases": ["paradise city"]
+  },
+  {
+    "title": "November Rain",
+    "artist": "Guns N' Roses",
+    "year": 1991,
+    "difficulty": "easy",
+    "aliases": ["november rain"]
+  },
+  {
+    "title": "Alive",
+    "artist": "Pearl Jam",
+    "year": 1991,
+    "difficulty": "medium",
+    "aliases": ["alive"]
+  },
+  {
+    "title": "Black Hole Sun",
+    "artist": "Soundgarden",
+    "year": 1994,
+    "difficulty": "medium",
+    "aliases": ["black hole sun"]
+  },
+  {
+    "title": "Everlong",
+    "artist": "Foo Fighters",
+    "year": 1997,
+    "difficulty": "easy",
+    "aliases": ["everlong"]
+  },
+  {
+    "title": "The Pretender",
+    "artist": "Foo Fighters",
+    "year": 2007,
+    "difficulty": "medium",
+    "aliases": ["the pretender"]
+  },
+  {
+    "title": "Best of You",
+    "artist": "Foo Fighters",
+    "year": 2005,
+    "difficulty": "medium",
+    "aliases": ["best of you"]
+  },
+  {
+    "title": "Use Somebody",
+    "artist": "Kings of Leon",
+    "year": 2008,
+    "difficulty": "easy",
+    "aliases": ["use somebody"]
+  },
+  {
+    "title": "Sex on Fire",
+    "artist": "Kings of Leon",
+    "year": 2008,
+    "difficulty": "easy",
+    "aliases": ["sex on fire"]
+  },
+  {
+    "title": "Take Me Out",
+    "artist": "Franz Ferdinand",
+    "year": 2004,
+    "difficulty": "medium",
+    "aliases": ["take me out"]
+  },
+  {
+    "title": "Do I Wanna Know?",
+    "artist": "Arctic Monkeys",
+    "year": 2013,
+    "difficulty": "medium",
+    "aliases": ["do i wanna know"]
+  },
+  {
+    "title": "505",
+    "artist": "Arctic Monkeys",
+    "year": 2007,
+    "difficulty": "hard",
+    "aliases": ["505"]
+  },
+  {
+    "title": "Somebody Told Me",
+    "artist": "The Killers",
+    "year": 2004,
+    "difficulty": "medium",
+    "aliases": ["somebody told me"]
+  },
+  {
+    "title": "When You Were Young",
+    "artist": "The Killers",
+    "year": 2006,
+    "difficulty": "medium",
+    "aliases": ["when you were young"]
+  },
+  {
+    "title": "Mr. Jones",
+    "artist": "Counting Crows",
+    "year": 1993,
+    "difficulty": "medium",
+    "aliases": ["mr jones", "mister jones"]
+  },
+  {
+    "title": "Iris",
+    "artist": "Goo Goo Dolls",
+    "year": 1998,
+    "difficulty": "easy",
+    "aliases": ["iris"]
+  },
+  {
+    "title": "Slide",
+    "artist": "Goo Goo Dolls",
+    "year": 1998,
+    "difficulty": "hard",
+    "aliases": ["slide"]
+  },
+  {
+    "title": "Chasing Cars",
+    "artist": "Snow Patrol",
+    "year": 2006,
+    "difficulty": "easy",
+    "aliases": ["chasing cars"]
+  },
+  {
+    "title": "How to Save a Life",
+    "artist": "The Fray",
+    "year": 2005,
+    "difficulty": "easy",
+    "aliases": ["how to save a life"]
+  },
+  {
+    "title": "You Found Me",
+    "artist": "The Fray",
+    "year": 2008,
+    "difficulty": "medium",
+    "aliases": ["you found me"]
+  },
+  {
+    "title": "Apologize",
+    "artist": "OneRepublic",
+    "year": 2007,
+    "difficulty": "easy",
+    "aliases": ["apologize"]
+  },
+  {
+    "title": "Counting Stars",
+    "artist": "OneRepublic",
+    "year": 2013,
+    "difficulty": "easy",
+    "aliases": ["counting stars"]
+  },
+  {
+    "title": "Demons",
+    "artist": "Imagine Dragons",
+    "year": 2012,
+    "difficulty": "easy",
+    "aliases": ["demons"]
+  },
+  {
+    "title": "Radioactive",
+    "artist": "Imagine Dragons",
+    "year": 2012,
+    "difficulty": "easy",
+    "aliases": ["radioactive"]
+  },
+  {
+    "title": "Believer",
+    "artist": "Imagine Dragons",
+    "year": 2017,
+    "difficulty": "easy",
+    "aliases": ["believer"]
+  },
+  {
+    "title": "Take Me to Church",
+    "artist": "Hozier",
+    "year": 2013,
+    "difficulty": "medium",
+    "aliases": ["take me to church"]
+  },
+  {
+    "title": "Somebody That I Used to Know",
+    "artist": "Gotye ft. Kimbra",
+    "year": 2011,
+    "difficulty": "medium",
+    "aliases": ["somebody that i used to know"]
+  },
+  {
+    "title": "Pumped Up Kicks",
+    "artist": "Foster the People",
+    "year": 2010,
+    "difficulty": "easy",
+    "aliases": ["pumped up kicks"]
+  },
+  {
+    "title": "Little Talks",
+    "artist": "Of Monsters and Men",
+    "year": 2011,
+    "difficulty": "medium",
+    "aliases": ["little talks"]
+  },
+  {
+    "title": "Stolen Dance",
+    "artist": "Milky Chance",
+    "year": 2013,
+    "difficulty": "medium",
+    "aliases": ["stolen dance"]
+  },
+  {
+    "title": "Electric Feel",
+    "artist": "MGMT",
+    "year": 2007,
+    "difficulty": "medium",
+    "aliases": ["electric feel"]
+  },
+  {
+    "title": "Kids",
+    "artist": "MGMT",
+    "year": 2007,
+    "difficulty": "hard",
+    "aliases": ["kids"]
+  },
+  {
+    "title": "Feel Good Inc.",
+    "artist": "Gorillaz",
+    "year": 2005,
+    "difficulty": "easy",
+    "aliases": ["feel good inc", "feel good inc."]
+  },
+  {
+    "title": "Clint Eastwood",
+    "artist": "Gorillaz",
+    "year": 2001,
+    "difficulty": "medium",
+    "aliases": ["clint eastwood"]
+  },
+  {
+    "title": "Seven Devils",
+    "artist": "Florence + the Machine",
+    "year": 2011,
+    "difficulty": "hard",
+    "aliases": ["seven devils"]
+  },
+  {
+    "title": "Dog Days Are Over",
+    "artist": "Florence + the Machine",
+    "year": 2008,
+    "difficulty": "easy",
+    "aliases": ["dog days are over"]
+  },
+  {
+    "title": "Running Up That Hill",
+    "artist": "Kate Bush",
+    "year": 1985,
+    "difficulty": "easy",
+    "aliases": ["running up that hill"]
+  },
+  {
+    "title": "Africa",
+    "artist": "Toto",
+    "year": 1982,
+    "difficulty": "easy",
+    "aliases": ["africa"]
+  },
+  {
+    "title": "Time After Time",
+    "artist": "Cyndi Lauper",
+    "year": 1983,
+    "difficulty": "easy",
+    "aliases": ["time after time"]
+  },
+  {
+    "title": "The Power of Love",
+    "artist": "Huey Lewis and the News",
+    "year": 1985,
+    "difficulty": "medium",
+    "aliases": ["the power of love"]
+  },
+  {
+    "title": "Faith",
+    "artist": "George Michael",
+    "year": 1987,
+    "difficulty": "medium",
+    "aliases": ["faith"]
+  },
+  {
+    "title": "Karma Police",
+    "artist": "Radiohead",
+    "year": 1997,
+    "difficulty": "medium",
+    "aliases": ["karma police"]
+  },
+  {
+    "title": "Creep",
+    "artist": "Radiohead",
+    "year": 1992,
+    "difficulty": "easy",
+    "aliases": ["creep"]
+  },
+  {
+    "title": "Bittersweet Symphony",
+    "artist": "The Verve",
+    "year": 1997,
+    "difficulty": "medium",
+    "aliases": ["bittersweet symphony"]
+  },
+  {
+    "title": "Under the Bridge",
+    "artist": "Red Hot Chili Peppers",
+    "year": 1991,
+    "difficulty": "easy",
+    "aliases": ["under the bridge"]
+  },
+  {
+    "title": "Californication",
+    "artist": "Red Hot Chili Peppers",
+    "year": 1999,
+    "difficulty": "medium",
+    "aliases": ["californication"]
+  },
+  {
+    "title": "Scar Tissue",
+    "artist": "Red Hot Chili Peppers",
+    "year": 1999,
+    "difficulty": "medium",
+    "aliases": ["scar tissue"]
+  },
+  {
+    "title": "Otherside",
+    "artist": "Red Hot Chili Peppers",
+    "year": 1999,
+    "difficulty": "medium",
+    "aliases": ["otherside"]
+  },
+  {
+    "title": "Save Tonight",
+    "artist": "Eagle-Eye Cherry",
+    "year": 1997,
+    "difficulty": "medium",
+    "aliases": ["save tonight"]
+  },
+  {
+    "title": "Closing Time",
+    "artist": "Semisonic",
+    "year": 1998,
+    "difficulty": "easy",
+    "aliases": ["closing time"]
+  },
+  {
+    "title": "Semi-Charmed Life",
+    "artist": "Third Eye Blind",
+    "year": 1997,
+    "difficulty": "medium",
+    "aliases": ["semi charmed life", "semi-charmed life"]
+  },
+  {
+    "title": "Jumper",
+    "artist": "Third Eye Blind",
+    "year": 1997,
+    "difficulty": "medium",
+    "aliases": ["jumper"]
+  },
+  {
+    "title": "1979",
+    "artist": "The Smashing Pumpkins",
+    "year": 1996,
+    "difficulty": "hard",
+    "aliases": ["1979"]
+  },
+  {
+    "title": "Tonight, Tonight",
+    "artist": "The Smashing Pumpkins",
+    "year": 1995,
+    "difficulty": "medium",
+    "aliases": ["tonight tonight"]
+  },
+  {
+    "title": "My Immortal",
+    "artist": "Evanescence",
+    "year": 2003,
+    "difficulty": "easy",
+    "aliases": ["my immortal"]
+  },
+  {
+    "title": "Call Me When You're Sober",
+    "artist": "Evanescence",
+    "year": 2006,
+    "difficulty": "hard",
+    "aliases": ["call me when youre sober", "call me when you're sober"]
+  },
+  {
+    "title": "The Reason",
+    "artist": "Hoobastank",
+    "year": 2003,
+    "difficulty": "easy",
+    "aliases": ["the reason"]
+  },
+  {
+    "title": "It's Been Awhile",
+    "artist": "Staind",
+    "year": 2001,
+    "difficulty": "medium",
+    "aliases": ["its been awhile", "it's been awhile"]
+  },
+  {
+    "title": "Outside",
+    "artist": "Staind",
+    "year": 2001,
+    "difficulty": "hard",
+    "aliases": ["outside"]
+  },
+  {
+    "title": "Broken",
+    "artist": "Seether ft. Amy Lee",
+    "year": 2004,
+    "difficulty": "easy",
+    "aliases": ["broken"]
+  },
+  {
+    "title": "Fake It",
+    "artist": "Seether",
+    "year": 2007,
+    "difficulty": "medium",
+    "aliases": ["fake it"]
+  },
+  {
+    "title": "Fine Again",
+    "artist": "Seether",
+    "year": 2002,
+    "difficulty": "medium",
+    "aliases": ["fine again"]
+  },
+  {
+    "title": "Treading Water",
+    "artist": "Machine Gun Kelly",
+    "year": 2020,
+    "difficulty": "hard",
+    "aliases": ["treading water"]
   }
 ]
