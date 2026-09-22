@@ -1,6 +1,6 @@
 {
   "name": "tunequest",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
   "description": "Standalone Twitch chat TuneQuest hangman-style song guessing game.",
   "main": "src/server.js",

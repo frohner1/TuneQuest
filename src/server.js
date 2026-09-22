@@ -30,6 +30,12 @@ const CHANNEL = String(
   process.env.TWITCH_CHANNEL || "frohner1"
 ).replace(/^#/, "");
 
+const VALID_DIFFICULTIES = [
+  "easy",
+  "medium",
+  "hard"
+];
+
 function loadJson(file, fallback) {
   try {
     if (!fs.existsSync(file)) {
@@ -42,7 +48,10 @@ function loadJson(file, fallback) {
       return fallback;
     }
 
-    const raw = fs.readFileSync(file, "utf8");
+    const raw = fs.readFileSync(
+      file,
+      "utf8"
+    );
 
     if (!raw.trim()) {
       return fallback;
@@ -50,7 +59,11 @@ function loadJson(file, fallback) {
 
     return JSON.parse(raw);
   } catch (error) {
-    console.error(`Failed to load ${file}:`, error);
+    console.error(
+      `Failed to load ${file}:`,
+      error
+    );
+
     return fallback;
   }
 }
@@ -66,17 +79,29 @@ function saveJson(file, data) {
 function normalizeText(value) {
   return String(value || "")
     .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
+    .replace(
+      /[\u0300-\u036f]/g,
+      ""
+    )
     .toLowerCase()
-    .replace(/[^a-z0-9]+/g, " ")
+    .replace(
+      /[^a-z0-9]+/g,
+      " "
+    )
     .trim()
-    .replace(/\s+/g, " ");
+    .replace(
+      /\s+/g,
+      " "
+    );
 }
 
 function normalizeLetter(value) {
   return String(value || "")
     .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
+    .replace(
+      /[\u0300-\u036f]/g,
+      ""
+    )
     .toUpperCase();
 }
 
@@ -87,10 +112,20 @@ function isLetter(character) {
 function shuffle(array) {
   const result = [...array];
 
-  for (let i = result.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
+  for (
+    let i = result.length - 1;
+    i > 0;
+    i--
+  ) {
+    const j =
+      Math.floor(
+        Math.random() * (i + 1)
+      );
 
-    [result[i], result[j]] = [
+    [
+      result[i],
+      result[j]
+    ] = [
       result[j],
       result[i]
     ];
@@ -107,30 +142,50 @@ function getUniqueLetters(title) {
       continue;
     }
 
-    const normalized = normalizeLetter(character);
+    const normalized =
+      normalizeLetter(character);
 
-    if (!letters.includes(normalized)) {
-      letters.push(normalized);
+    if (
+      !letters.includes(
+        normalized
+      )
+    ) {
+      letters.push(
+        normalized
+      );
     }
   }
 
   return letters;
 }
 
-function buildMaskedTitle(title, revealedLetters) {
-  const words = title.split(" ");
+function buildMaskedTitle(
+  title,
+  revealedLetters
+) {
+  const words =
+    title.split(" ");
 
   return words
     .map((word) => {
       return [...word]
         .map((character) => {
-          if (!isLetter(character)) {
+          if (
+            !isLetter(character)
+          ) {
             return character;
           }
 
-          const normalized = normalizeLetter(character);
+          const normalized =
+            normalizeLetter(
+              character
+            );
 
-          if (revealedLetters.has(normalized)) {
+          if (
+            revealedLetters.has(
+              normalized
+            )
+          ) {
             return character.toUpperCase();
           }
 
@@ -141,14 +196,41 @@ function buildMaskedTitle(title, revealedLetters) {
     .join("   ");
 }
 
+function normalizeDifficulty(value) {
+  const difficulty =
+    String(value || "")
+      .trim()
+      .toLowerCase();
+
+  if (
+    VALID_DIFFICULTIES.includes(
+      difficulty
+    )
+  ) {
+    return difficulty;
+  }
+
+  return null;
+}
+
 class TuneQuest {
   constructor() {
-    this.songs = loadJson(SONGS_FILE, []);
-    this.scores = loadJson(SCORES_FILE, {});
+    this.songs =
+      loadJson(
+        SONGS_FILE,
+        []
+      );
+
+    this.scores =
+      loadJson(
+        SCORES_FILE,
+        {}
+      );
 
     this.current = null;
 
     this.roundNumber = 0;
+
     this.lastSongTitle = null;
 
     this.clients = new Set();
@@ -160,21 +242,32 @@ class TuneQuest {
     socket.send(
       JSON.stringify({
         type: "state",
-        state: this.getPublicState()
+        state:
+          this.getPublicState()
       })
     );
   }
 
   removeClient(socket) {
-    this.clients.delete(socket);
+    this.clients.delete(
+      socket
+    );
   }
 
   broadcast(message) {
-    const payload = JSON.stringify(message);
+    const payload =
+      JSON.stringify(message);
 
-    for (const socket of this.clients) {
-      if (socket.readyState === WebSocket.OPEN) {
-        socket.send(payload);
+    for (
+      const socket of this.clients
+    ) {
+      if (
+        socket.readyState ===
+        WebSocket.OPEN
+      ) {
+        socket.send(
+          payload
+        );
       }
     }
   }
@@ -185,11 +278,17 @@ class TuneQuest {
     }
 
     const elapsedSeconds =
-      (Date.now() - this.current.startedAt) / 1000;
+      (
+        Date.now() -
+        this.current.startedAt
+      ) / 1000;
 
     return Math.max(
       0,
-      Math.ceil(ROUND_SECONDS - elapsedSeconds)
+      Math.ceil(
+        ROUND_SECONDS -
+        elapsedSeconds
+      )
     );
   }
 
@@ -197,9 +296,11 @@ class TuneQuest {
     if (!this.current) {
       return {
         game: "TuneQuest",
-        version: "0.0.2",
+        version: "0.0.3",
         status: "idle",
-        roundNumber: this.roundNumber,
+        roundNumber:
+          this.roundNumber,
+        difficulty: "",
         maskedTitle: "",
         revealedUniqueLetters: 0,
         totalUniqueLetters: 0,
@@ -211,20 +312,29 @@ class TuneQuest {
 
     return {
       game: "TuneQuest",
-      version: "0.0.2",
+      version: "0.0.3",
       status: "playing",
-      roundNumber: this.roundNumber,
-      maskedTitle: this.getMaskedTitle(),
+      roundNumber:
+        this.roundNumber,
+      difficulty:
+        this.current.difficulty,
+      maskedTitle:
+        this.getMaskedTitle(),
       revealedUniqueLetters:
-        this.current.revealedLetters.size,
+        this.current
+          .revealedLetters.size,
       totalUniqueLetters:
-        this.current.uniqueLetters.length,
-      maxPoints: this.calculatePoints(),
+        this.current
+          .uniqueLetters.length,
+      maxPoints:
+        this.calculatePoints(),
       remainingSeconds:
         this.getRemainingSeconds(),
       allLettersRevealed:
-        this.current.revealedLetters.size >=
-        this.current.uniqueLetters.length
+        this.current
+          .revealedLetters.size >=
+        this.current
+          .uniqueLetters.length
     };
   }
 
@@ -239,87 +349,170 @@ class TuneQuest {
     );
   }
 
-  chooseSong() {
+  getSongsForDifficulty(
+    difficulty
+  ) {
+    return this.songs.filter(
+      (song) =>
+        normalizeDifficulty(
+          song.difficulty
+        ) === difficulty
+    );
+  }
+
+  chooseDifficulty(
+    requestedDifficulty
+  ) {
+    if (
+      requestedDifficulty
+    ) {
+      return requestedDifficulty;
+    }
+
+    return VALID_DIFFICULTIES[
+      Math.floor(
+        Math.random() *
+        VALID_DIFFICULTIES.length
+      )
+    ];
+  }
+
+  chooseSong(
+    difficulty
+  ) {
     if (!this.songs.length) {
       return null;
     }
 
-    let available = this.songs.filter(
-      (song) =>
-        normalizeText(song.title) !==
-        normalizeText(this.lastSongTitle)
-    );
+    let available =
+      this.getSongsForDifficulty(
+        difficulty
+      );
 
     if (!available.length) {
-      available = [...this.songs];
+      return null;
+    }
+
+    const previousTitle =
+      normalizeText(
+        this.lastSongTitle
+      );
+
+    const withoutPrevious =
+      available.filter(
+        (song) =>
+          normalizeText(
+            song.title
+          ) !== previousTitle
+      );
+
+    if (
+      withoutPrevious.length
+    ) {
+      available =
+        withoutPrevious;
     }
 
     return available[
-      Math.floor(Math.random() * available.length)
+      Math.floor(
+        Math.random() *
+        available.length
+      )
     ];
   }
 
-  startRound() {
+  startRound(
+    requestedDifficulty = null
+  ) {
     if (this.current) {
       return {
         success: false,
-        message: "A TuneQuest round is already running."
+        message:
+          "A TuneQuest round is already running."
       };
     }
 
-    const song = this.chooseSong();
+    const difficulty =
+      this.chooseDifficulty(
+        requestedDifficulty
+      );
+
+    const song =
+      this.chooseSong(
+        difficulty
+      );
 
     if (!song) {
       return {
         success: false,
-        message: "There are no songs configured."
+        message:
+          `There are no ${difficulty} songs configured.`
       };
     }
 
     this.roundNumber += 1;
-    this.lastSongTitle = song.title;
+
+    this.lastSongTitle =
+      song.title;
 
     const uniqueLetters =
-      getUniqueLetters(song.title);
+      getUniqueLetters(
+        song.title
+      );
 
     this.current = {
       song,
-      startedAt: Date.now(),
+      difficulty,
+      startedAt:
+        Date.now(),
       uniqueLetters,
       remainingLetters:
-        shuffle(uniqueLetters),
-      revealedLetters: new Set(),
+        shuffle(
+          uniqueLetters
+        ),
+      revealedLetters:
+        new Set(),
       revealTimer: null,
-      roundTimer: null,
-      clockTimer: null
+      clockTimer: null,
+      roundTimer: null
     };
 
     this.current.revealTimer =
       setInterval(
-        () => this.revealNextLetter(),
-        REVEAL_INTERVAL_SECONDS * 1000
+        () =>
+          this.revealNextLetter(),
+        REVEAL_INTERVAL_SECONDS *
+          1000
       );
 
     this.current.clockTimer =
       setInterval(
-        () => this.broadcastTimer(),
+        () =>
+          this.broadcastTimer(),
         1000
       );
 
     this.current.roundTimer =
       setTimeout(
-        () => this.endRound("timeout"),
-        ROUND_SECONDS * 1000
+        () =>
+          this.endRound(
+            "timeout"
+          ),
+        ROUND_SECONDS *
+          1000
       );
 
     this.broadcast({
-      type: "round_started",
-      state: this.getPublicState()
+      type:
+        "round_started",
+      state:
+        this.getPublicState()
     });
 
     return {
       success: true,
-      song
+      song,
+      difficulty
     };
   }
 
@@ -328,12 +521,10 @@ class TuneQuest {
       return;
     }
 
-    const remainingSeconds =
-      this.getRemainingSeconds();
-
     this.broadcast({
       type: "timer",
-      remainingSeconds
+      remainingSeconds:
+        this.getRemainingSeconds()
     });
   }
 
@@ -341,58 +532,77 @@ class TuneQuest {
     if (!this.current) {
       return {
         success: false,
-        message: "There is no active TuneQuest round."
+        message:
+          "There is no active TuneQuest round."
       };
     }
 
     if (
-      this.current.remainingLetters.length === 0
+      !this.current
+        .remainingLetters.length
     ) {
-      if (this.current.revealTimer) {
+      if (
+        this.current.revealTimer
+      ) {
         clearInterval(
-          this.current.revealTimer
+          this.current
+            .revealTimer
         );
 
-        this.current.revealTimer = null;
+        this.current.revealTimer =
+          null;
       }
 
       return {
         success: false,
-        message: "All letters have already been revealed."
+        message:
+          "All letters have already been revealed."
       };
     }
 
     const letter =
-      this.current.remainingLetters.shift();
+      this.current
+        .remainingLetters
+        .shift();
 
-    this.current.revealedLetters.add(letter);
+    this.current
+      .revealedLetters
+      .add(letter);
 
     const maskedTitle =
       this.getMaskedTitle();
 
     this.broadcast({
-      type: "letter_revealed",
+      type:
+        "letter_revealed",
       letter,
       maskedTitle,
       revealedUniqueLetters:
-        this.current.revealedLetters.size,
+        this.current
+          .revealedLetters.size,
       totalUniqueLetters:
-        this.current.uniqueLetters.length,
+        this.current
+          .uniqueLetters.length,
       maxPoints:
         this.calculatePoints(),
       allLettersRevealed:
-        this.current.remainingLetters.length === 0
+        this.current
+          .remainingLetters
+          .length === 0
     });
 
     if (
-      this.current.remainingLetters.length === 0 &&
+      !this.current
+        .remainingLetters.length &&
       this.current.revealTimer
     ) {
       clearInterval(
-        this.current.revealTimer
+        this.current
+          .revealTimer
       );
 
-      this.current.revealTimer = null;
+      this.current.revealTimer =
+        null;
     }
 
     return {
@@ -407,7 +617,8 @@ class TuneQuest {
     }
 
     const revealed =
-      this.current.revealedLetters.size;
+      this.current
+        .revealedLetters.size;
 
     return Math.max(
       10,
@@ -415,13 +626,17 @@ class TuneQuest {
     );
   }
 
-  findMatchingSongGuess(guess) {
+  findMatchingSongGuess(
+    guess
+  ) {
     if (!this.current) {
       return false;
     }
 
     const normalizedGuess =
-      normalizeText(guess);
+      normalizeText(
+        guess
+      );
 
     if (!normalizedGuess) {
       return false;
@@ -429,21 +644,27 @@ class TuneQuest {
 
     const possibleAnswers = [
       this.current.song.title,
-      ...(this.current.song.aliases || [])
+      ...(this.current.song.aliases ||
+        [])
     ];
 
     return possibleAnswers.some(
       (answer) =>
-        normalizeText(answer) ===
-        normalizedGuess
+        normalizeText(
+          answer
+        ) === normalizedGuess
     );
   }
 
-  handleGuess(username, guess) {
+  handleGuess(
+    username,
+    guess
+  ) {
     if (!this.current) {
       return {
         success: false,
-        message: "There is no active TuneQuest round."
+        message:
+          "There is no active TuneQuest round."
       };
     }
 
@@ -455,7 +676,11 @@ class TuneQuest {
       };
     }
 
-    if (!this.findMatchingSongGuess(guess)) {
+    if (
+      !this.findMatchingSongGuess(
+        guess
+      )
+    ) {
       return {
         success: false,
         message: null
@@ -471,17 +696,20 @@ class TuneQuest {
     const artist =
       this.current.song.artist;
 
-    if (!this.scores[username]) {
+    if (
+      !this.scores[username]
+    ) {
       this.scores[username] = {
         points: 0,
         wins: 0
       };
     }
 
-    this.scores[username].points +=
-      points;
+    this.scores[username]
+      .points += points;
 
-    this.scores[username].wins += 1;
+    this.scores[username]
+      .wins += 1;
 
     saveJson(
       SCORES_FILE,
@@ -506,7 +734,10 @@ class TuneQuest {
     };
   }
 
-  endRound(reason, winner = null) {
+  endRound(
+    reason,
+    winner = null
+  ) {
     if (!this.current) {
       return;
     }
@@ -514,19 +745,25 @@ class TuneQuest {
     const round =
       this.current;
 
-    if (round.revealTimer) {
+    if (
+      round.revealTimer
+    ) {
       clearInterval(
         round.revealTimer
       );
     }
 
-    if (round.clockTimer) {
+    if (
+      round.clockTimer
+    ) {
       clearInterval(
         round.clockTimer
       );
     }
 
-    if (round.roundTimer) {
+    if (
+      round.roundTimer
+    ) {
       clearTimeout(
         round.roundTimer
       );
@@ -538,19 +775,26 @@ class TuneQuest {
     const artist =
       round.song.artist;
 
+    const difficulty =
+      round.difficulty;
+
     this.current = null;
 
     this.broadcast({
-      type: "round_ended",
+      type:
+        "round_ended",
       reason,
       answer,
       artist,
+      difficulty,
       winner,
       maskedTitle:
         buildMaskedTitle(
           answer,
           new Set(
-            getUniqueLetters(answer)
+            getUniqueLetters(
+              answer
+            )
           )
         ),
       leaderboard:
@@ -570,7 +814,9 @@ class TuneQuest {
     const answer =
       this.current.song.title;
 
-    this.endRound("skipped");
+    this.endRound(
+      "skipped"
+    );
 
     return {
       success: true,
@@ -601,15 +847,20 @@ class TuneQuest {
       .slice(0, 10)
       .map(
         ([username, stats], index) => ({
-          rank: index + 1,
+          rank:
+            index + 1,
           username,
-          points: stats.points,
-          wins: stats.wins
+          points:
+            stats.points,
+          wins:
+            stats.wins
         })
       );
   }
 
-  getPlayerScore(username) {
+  getPlayerScore(
+    username
+  ) {
     const stats =
       this.scores[username];
 
@@ -623,8 +874,10 @@ class TuneQuest {
 
     return {
       username,
-      points: stats.points,
-      wins: stats.wins
+      points:
+        stats.points,
+      wins:
+        stats.wins
     };
   }
 }
@@ -669,8 +922,9 @@ app.get(
     res.json({
       ok: true,
       game: "TuneQuest",
-      version: "0.0.2",
-      twitchChannel: CHANNEL
+      version: "0.0.3",
+      twitchChannel:
+        CHANNEL
     });
   }
 );
@@ -690,7 +944,9 @@ wss.on(
       "Overlay connected."
     );
 
-    game.addClient(socket);
+    game.addClient(
+      socket
+    );
 
     socket.on(
       "close",
@@ -751,7 +1007,6 @@ if (
       identity: {
         username:
           twitchUsername,
-
         password:
           twitchToken
       },
@@ -816,13 +1071,36 @@ if (
       if (
         command === "!tune"
       ) {
+        let requestedDifficulty =
+          null;
+
+        if (argument) {
+          requestedDifficulty =
+            normalizeDifficulty(
+              argument
+            );
+
+          if (
+            !requestedDifficulty
+          ) {
+            await client.say(
+              channel,
+              "❌ Difficulty must be easy, medium, or hard."
+            );
+
+            return;
+          }
+        }
+
         const result =
-          game.startRound();
+          game.startRound(
+            requestedDifficulty
+          );
 
         if (result.success) {
           await client.say(
             channel,
-            "🎵 TuneQuest round started! Guess the song with !guess <song title>"
+            `🎵 TuneQuest ${result.difficulty} round started! Guess the song with !guess <song title>`
           );
         } else {
           await client.say(
@@ -939,7 +1217,7 @@ if (
       ) {
         await client.say(
           channel,
-          "🎵 !tune = start | !guess <song> = guess | !score = your score | !scores = leaderboard | !skip = skip round"
+          "🎵 !tune = random difficulty | !tune easy/medium/hard = choose difficulty | !guess <song> = guess | !score = your score | !scores = leaderboard | !skip = skip round"
         );
 
         return;

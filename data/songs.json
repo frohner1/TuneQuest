@@ -3,9 +3,82 @@
     "title": "Example Song",
     "artist": "Example Artist",
     "year": 2026,
+    "difficulty": "easy",
     "aliases": [
       "example song",
       "example"
+    ]
+  },
+  {
+    "title": "Midnight Drive",
+    "artist": "Example Artist",
+    "year": 2026,
+    "difficulty": "easy",
+    "aliases": [
+      "midnight drive"
+    ]
+  },
+  {
+    "title": "Summer Nights",
+    "artist": "Example Artist",
+    "year": 2026,
+    "difficulty": "easy",
+    "aliases": [
+      "summer nights"
+    ]
+  },
+  {
+    "title": "Dancing in the Moonlight",
+    "artist": "Example Artist",
+    "year": 2026,
+    "difficulty": "medium",
+    "aliases": [
+      "dancing in the moonlight"
+    ]
+  },
+  {
+    "title": "Running Through the City",
+    "artist": "Example Artist",
+    "year": 2026,
+    "difficulty": "medium",
+    "aliases": [
+      "running through the city"
+    ]
+  },
+  {
+    "title": "Where the Stars Remember Us",
+    "artist": "Example Artist",
+    "year": 2026,
+    "difficulty": "medium",
+    "aliases": [
+      "where the stars remember us"
+    ]
+  },
+  {
+    "title": "The Last Photograph Before Midnight",
+    "artist": "Example Artist",
+    "year": 2026,
+    "difficulty": "hard",
+    "aliases": [
+      "the last photograph before midnight"
+    ]
+  },
+  {
+    "title": "Somewhere Between Forever and Goodbye",
+    "artist": "Example Artist",
+    "year": 2026,
+    "difficulty": "hard",
+    "aliases": [
+      "somewhere between forever and goodbye"
+    ]
+  },
+  {
+    "title": "When the World Goes Quiet We Keep Dancing",
+    "artist": "Example Artist",
+    "year": 2026,
+    "difficulty": "hard",
+    "aliases": [
+      "when the world goes quiet we keep dancing"
     ]
   }
 ]

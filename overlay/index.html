@@ -40,15 +40,22 @@
       width: min(1200px, 94vw);
       padding: 32px;
       border-radius: 24px;
+
       background:
         linear-gradient(
           145deg,
           rgba(12, 12, 20, 0.96),
           rgba(28, 20, 45, 0.94)
         );
-      border: 2px solid rgba(255, 255, 255, 0.12);
+
+      border:
+        2px solid
+        rgba(255, 255, 255, 0.12);
+
       box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.55);
+        0 20px 60px
+        rgba(0, 0, 0, 0.55);
+
       text-align: center;
     }
 
@@ -65,24 +72,53 @@
       text-transform: uppercase;
       letter-spacing: 0.16em;
       opacity: 0.7;
-      margin-bottom: 26px;
+      margin-bottom: 12px;
+    }
+
+    .difficulty {
+      display: inline-block;
+      padding: 7px 14px;
+      border-radius: 999px;
+      margin-bottom: 20px;
+
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+
+      background:
+        rgba(255, 255, 255, 0.1);
+
+      border:
+        1px solid
+        rgba(255, 255, 255, 0.15);
     }
 
     .song {
       min-height: 150px;
+
       display: flex;
       align-items: center;
       justify-content: center;
+
       padding: 20px;
+
       font-family:
         "Courier New",
         Courier,
         monospace;
-      font-size: clamp(30px, 5vw, 72px);
+
+      font-size:
+        clamp(30px, 5vw, 72px);
+
       font-weight: 800;
+
       line-height: 1.35;
+
       letter-spacing: 0.06em;
+
       word-break: break-word;
+
       white-space: pre-wrap;
     }
 
@@ -125,7 +161,8 @@
     }
 
     .reveal {
-      animation: reveal 0.45s ease-out;
+      animation:
+        reveal 0.45s ease-out;
     }
 
     @keyframes reveal {
@@ -155,6 +192,13 @@
       class="status"
     >
       waiting for a round
+    </div>
+
+    <div
+      id="difficulty"
+      class="difficulty"
+    >
+      --
     </div>
 
     <div
@@ -221,25 +265,44 @@
 
   <script>
     const statusElement =
-      document.getElementById("status");
+      document.getElementById(
+        "status"
+      );
+
+    const difficultyElement =
+      document.getElementById(
+        "difficulty"
+      );
 
     const songElement =
-      document.getElementById("song");
+      document.getElementById(
+        "song"
+      );
 
     const timerElement =
-      document.getElementById("timer");
+      document.getElementById(
+        "timer"
+      );
 
     const lettersElement =
-      document.getElementById("letters");
+      document.getElementById(
+        "letters"
+      );
 
     const pointsElement =
-      document.getElementById("points");
+      document.getElementById(
+        "points"
+      );
 
     const messageElement =
-      document.getElementById("message");
+      document.getElementById(
+        "message"
+      );
 
     const answerElement =
-      document.getElementById("answer");
+      document.getElementById(
+        "answer"
+      );
 
     function updateState(state) {
       if (!state) {
@@ -251,6 +314,9 @@
       ) {
         statusElement.textContent =
           "waiting for a round";
+
+        difficultyElement.textContent =
+          "--";
 
         songElement.textContent =
           "!tune";
@@ -277,6 +343,9 @@
         state.allLettersRevealed
           ? "final chance"
           : "guess the song";
+
+      difficultyElement.textContent =
+        state.difficulty;
 
       songElement.textContent =
         state.maskedTitle || "";
@@ -319,7 +388,8 @@
       }
 
       if (
-        message.type === "round_started"
+        message.type ===
+        "round_started"
       ) {
         messageElement.textContent =
           "guess the song title in chat with !guess";
@@ -344,7 +414,8 @@
       }
 
       if (
-        message.type === "letter_revealed"
+        message.type ===
+        "letter_revealed"
       ) {
         songElement.textContent =
           message.maskedTitle;
@@ -377,12 +448,16 @@
       }
 
       if (
-        message.type === "round_ended"
+        message.type ===
+        "round_ended"
       ) {
         statusElement.textContent =
           message.reason === "guessed"
             ? "round complete"
             : "round over";
+
+        difficultyElement.textContent =
+          message.difficulty;
 
         songElement.textContent =
           message.answer;
@@ -400,7 +475,9 @@
         answerElement.textContent =
           `${message.answer} — ${message.artist}`;
 
-        if (message.winner) {
+        if (
+          message.winner
+        ) {
           answerElement.textContent +=
             ` · ${message.winner.points} points`;
         }
@@ -468,7 +545,7 @@
         "error",
         (error) => {
           console.error(
-            "Overlay WebSocket error:",
+            "TuneQuest WebSocket error:",
             error
           );
         }
@@ -491,7 +568,9 @@
         const data =
           await response.json();
 
-        updateState(data);
+        updateState(
+          data
+        );
       } catch (error) {
         console.error(
           "Unable to load TuneQuest state:",

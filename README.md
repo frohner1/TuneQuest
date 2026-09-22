@@ -6,7 +6,7 @@ It is completely separate from the Twitch RPG project.
 
 ## Build
 
-Build 0.0.2
+Build 0.0.3
 
 ## Game Concept
 
@@ -20,7 +20,17 @@ Every few seconds, TuneQuest reveals another unique letter.
 
 If the same letter appears multiple times in the title, every occurrence is revealed simultaneously.
 
-Example:
+The order of revealed letters is randomized.
+
+Players guess the complete song title through Twitch chat.
+
+The game continues until somebody correctly guesses the song or the round timer expires.
+
+## Difficulty
+
+TuneQuest has three difficulty levels:
 
 ```text
-_ _ _ _ _ _   _ _ _ _
+easy
+medium
+hard
