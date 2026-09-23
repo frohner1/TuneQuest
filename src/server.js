@@ -118,19 +118,22 @@ class TuneQuest {
 
     this.app = express();
     this.server = http.createServer(this.app);
+
     this.wss = new WebSocket.Server({
       server: this.server
     });
 
     this.app.get("/", (req, res) => {
-      res.sendFile(path.join(__dirname, "..", "overlay", "index.html"));
+      res.sendFile(
+        path.join(__dirname, "..", "overlay", "index.html")
+      );
     });
 
     this.app.get("/health", (req, res) => {
       res.json({
         ok: true,
         game: "TuneQuest",
-        build: "0.0.6",
+        build: "0.0.8",
         roundActive: Boolean(this.current),
         roundNumber: this.roundNumber
       });
@@ -270,7 +273,9 @@ class TuneQuest {
       candidates = available;
     }
 
-    const index = Math.floor(Math.random() * candidates.length);
+    const index = Math.floor(
+      Math.random() * candidates.length
+    );
 
     return candidates[index];
   }
@@ -289,7 +294,9 @@ class TuneQuest {
 
     if (!selectedDifficulty) {
       selectedDifficulty =
-        difficulties[Math.floor(Math.random() * difficulties.length)];
+        difficulties[
+          Math.floor(Math.random() * difficulties.length)
+        ];
     }
 
     selectedDifficulty = selectedDifficulty.toLowerCase();
@@ -321,7 +328,9 @@ class TuneQuest {
       startedAt: Date.now(),
       durationSeconds: ROUND_SECONDS,
       uniqueLetters,
-      revealQueue: [...uniqueLetters].sort(() => Math.random() - 0.5),
+      revealQueue: [...uniqueLetters].sort(
+        () => Math.random() - 0.5
+      ),
       revealedLetters: new Set()
     };
 
@@ -387,9 +396,14 @@ class TuneQuest {
 
     this.current.revealedLetters.add(letter);
 
-    const revealedCount = this.current.revealedLetters.size;
-    const totalLetters = this.current.uniqueLetters.length;
-    const maxPoints = this.calculatePoints();
+    const revealedCount =
+      this.current.revealedLetters.size;
+
+    const totalLetters =
+      this.current.uniqueLetters.length;
+
+    const maxPoints =
+      this.calculatePoints();
 
     this.broadcast({
       type: "letter_revealed",
@@ -411,11 +425,29 @@ class TuneQuest {
       return 0;
     }
 
-    const revealed = this.current.revealedLetters.size;
+    const revealed =
+      this.current.revealedLetters.size;
+
+    const difficulty =
+      this.current.difficulty.toLowerCase();
+
+    let startingPoints;
+    let penaltyPerReveal;
+
+    if (difficulty === "easy") {
+      startingPoints = 60;
+      penaltyPerReveal = 15;
+    } else if (difficulty === "hard") {
+      startingPoints = 90;
+      penaltyPerReveal = 5;
+    } else {
+      startingPoints = 75;
+      penaltyPerReveal = 10;
+    }
 
     return Math.max(
       10,
-      100 - revealed * 10
+      startingPoints - revealed * penaltyPerReveal
     );
   }
 
@@ -432,9 +464,10 @@ class TuneQuest {
       return null;
     }
 
-    const normalizedTitle = this.current.song.title
-      .trim()
-      .toLowerCase();
+    const normalizedTitle =
+      this.current.song.title
+        .trim()
+        .toLowerCase();
 
     if (normalizedGuess === normalizedTitle) {
       return this.current.song;
@@ -579,11 +612,16 @@ class TuneQuest {
 
   startServer() {
     this.server.listen(PORT, () => {
-      console.log(`TuneQuest Build 0.0.6 running on port ${PORT}`);
+      console.log(
+        `TuneQuest Build 0.0.8 running on port ${PORT}`
+      );
       console.log(`Loaded ${songs.length} songs.`);
       console.log(`Round length: ${ROUND_SECONDS}s`);
       console.log(
         `Letter reveal interval: ${REVEAL_INTERVAL_SECONDS}s`
+      );
+      console.log(
+        "Scoring: Easy 60/-15 | Medium 75/-10 | Hard 90/-5"
       );
     });
   }
@@ -599,7 +637,9 @@ const twitchClient = new tmi.Client({
     username: process.env.TWITCH_USERNAME,
     password: process.env.TWITCH_OAUTH_TOKEN
   },
-  channels: [process.env.TWITCH_CHANNEL || "frohner1"]
+  channels: [
+    process.env.TWITCH_CHANNEL || "frohner1"
+  ]
 });
 
 twitchClient.connect().then(() => {
@@ -610,163 +650,181 @@ twitchClient.connect().then(() => {
   );
 });
 
-twitchClient.on("message", (channel, tags, message, self) => {
-  if (self) {
-    return;
-  }
-
-  const username = normalizeUsername(tags.username);
-  const trimmed = message.trim();
-
-  if (!trimmed.startsWith("!")) {
-    return;
-  }
-
-  const parts = trimmed.split(/\s+/);
-  const command = parts[0].toLowerCase();
-
-  if (command === "!tune") {
-    const difficulty = parts[1]
-      ? parts[1].toLowerCase()
-      : null;
-
-    const result = game.startRound(difficulty);
-
-    if (!result.ok) {
-      twitchClient.say(channel, result.message);
+twitchClient.on(
+  "message",
+  (channel, tags, message, self) => {
+    if (self) {
       return;
     }
 
-    twitchClient.say(
-      channel,
-      `TuneQuest round #${result.roundNumber} started — ${result.difficulty.toUpperCase()} difficulty!`
-    );
+    const username = normalizeUsername(tags.username);
+    const trimmed = message.trim();
 
-    return;
-  }
-
-  if (command === "!guess") {
-    const guess = parts.slice(1).join(" ");
-
-    if (!guess) {
-      twitchClient.say(
-        channel,
-        `${username}, use !guess <song title>.`
-      );
+    if (!trimmed.startsWith("!")) {
       return;
     }
 
-    const result = game.handleGuess(username, guess);
+    const parts = trimmed.split(/\s+/);
+    const command = parts[0].toLowerCase();
 
-    if (result.ok) {
-      let messageText =
-        `${username} guessed "${result.songTitle}" and earned ` +
-        `${result.points} points!`;
+    if (command === "!tune") {
+      const difficulty = parts[1]
+        ? parts[1].toLowerCase()
+        : null;
 
-      if (result.streak >= 2) {
-        messageText +=
-          ` 🔥 ${result.streak}-song streak!`;
-      } else if (result.streak === 1) {
-        messageText +=
-          ` 🔥 1-song streak!`;
+      const result = game.startRound(difficulty);
+
+      if (!result.ok) {
+        twitchClient.say(channel, result.message);
+        return;
       }
 
-      if (
-        result.bestStreak > 1 &&
-        result.streak === result.bestStreak
-      ) {
-        messageText +=
-          ` Personal best streak: ${result.bestStreak}!`;
-      }
-
-      twitchClient.say(channel, messageText);
-      return;
-    }
-
-    if (result.correct === false) {
-      twitchClient.say(channel, result.message);
-    } else {
-      twitchClient.say(channel, result.message);
-    }
-
-    return;
-  }
-
-  if (command === "!score") {
-    const stats = game.getPlayerStats(username);
-
-    twitchClient.say(
-      channel,
-      `${username}, your TuneQuest score is ${stats.score} points. ` +
-        `Current streak: ${stats.streak}. ` +
-        `Best streak: ${stats.bestStreak}.`
-    );
-
-    return;
-  }
-
-  if (command === "!scores") {
-    const leaderboard = game.getLeaderboard();
-
-    if (leaderboard.length === 0) {
       twitchClient.say(
         channel,
-        "TuneQuest has no scores yet."
+        `TuneQuest round #${result.roundNumber} started — ${result.difficulty.toUpperCase()} difficulty!`
       );
+
       return;
     }
 
-    const topPlayers = leaderboard
-      .slice(0, 5)
-      .map(
-        (player, index) =>
-          `${index + 1}. ${player.username} ${player.score} pts`
-      )
-      .join(" | ");
+    if (command === "!guess") {
+      const guess = parts.slice(1).join(" ");
 
-    twitchClient.say(
-      channel,
-      `TuneQuest leaderboard: ${topPlayers}`
-    );
+      if (!guess) {
+        twitchClient.say(
+          channel,
+          `${username}, use !guess <song title>.`
+        );
+        return;
+      }
 
-    return;
-  }
+      const result = game.handleGuess(
+        username,
+        guess
+      );
 
-  if (command === "!skip") {
-    const isBroadcaster =
-      tags.badges &&
-      tags.badges.broadcaster === "1";
+      if (result.ok) {
+        let messageText =
+          `${username} guessed "${result.songTitle}" and earned ` +
+          `${result.points} points!`;
 
-    const isMod =
-      tags.mod === true ||
-      (tags.badges && tags.badges.moderator === "1");
+        if (result.streak >= 2) {
+          messageText +=
+            ` 🔥 ${result.streak}-song streak!`;
+        } else if (result.streak === 1) {
+          messageText +=
+            " 🔥 1-song streak!";
+        }
 
-    if (!isBroadcaster && !isMod) {
+        if (
+          result.bestStreak > 1 &&
+          result.streak === result.bestStreak
+        ) {
+          messageText +=
+            ` Personal best streak: ${result.bestStreak}!`;
+        }
+
+        twitchClient.say(
+          channel,
+          messageText
+        );
+
+        return;
+      }
+
+      twitchClient.say(
+        channel,
+        result.message
+      );
+
       return;
     }
 
-    const result = game.skipRound();
+    if (command === "!score") {
+      const stats =
+        game.getPlayerStats(username);
 
-    if (!result.ok) {
-      twitchClient.say(channel, result.message);
+      twitchClient.say(
+        channel,
+        `${username}, your TuneQuest score is ${stats.score} points. ` +
+          `Current streak: ${stats.streak}. ` +
+          `Best streak: ${stats.bestStreak}.`
+      );
+
       return;
     }
 
-    twitchClient.say(
-      channel,
-      `TuneQuest round skipped. The song was "${result.songTitle}".`
-    );
+    if (command === "!scores") {
+      const leaderboard =
+        game.getLeaderboard();
 
-    return;
-  }
+      if (leaderboard.length === 0) {
+        twitchClient.say(
+          channel,
+          "TuneQuest has no scores yet."
+        );
 
-  if (command === "!tunehelp") {
-    twitchClient.say(
-      channel,
-      "TuneQuest: !tune, !tune easy|medium|hard, !guess <song>, !score, !scores, !skip. Correct guesses build streaks!"
-    );
+        return;
+      }
+
+      const topPlayers =
+        leaderboard
+          .slice(0, 5)
+          .map(
+            (player, index) =>
+              `${index + 1}. ${player.username} ${player.score} pts`
+          )
+          .join(" | ");
+
+      twitchClient.say(
+        channel,
+        `TuneQuest leaderboard: ${topPlayers}`
+      );
+
+      return;
+    }
+
+    if (command === "!skip") {
+      const isBroadcaster =
+        tags.badges &&
+        tags.badges.broadcaster === "1";
+
+      const isMod =
+        tags.mod === true ||
+        (tags.badges &&
+          tags.badges.moderator === "1");
+
+      if (!isBroadcaster && !isMod) {
+        return;
+      }
+
+      const result = game.skipRound();
+
+      if (!result.ok) {
+        twitchClient.say(
+          channel,
+          result.message
+        );
+
+        return;
+      }
+
+      twitchClient.say(
+        channel,
+        `TuneQuest round skipped. The song was "${result.songTitle}".`
+      );
+
+      return;
+    }
+
+    if (command === "!tunehelp") {
+      twitchClient.say(
+        channel,
+        "TuneQuest: !tune, !tune easy|medium|hard, !guess <song>, !score, !scores, !skip. Correct guesses build streaks!"
+      );
+    }
   }
-});
+);
 
 setInterval(() => {
   if (game.current) {
