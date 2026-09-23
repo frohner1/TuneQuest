@@ -51,6 +51,17 @@
       border-radius: 24px;
       box-shadow:
         0 20px 60px rgba(0, 0, 0, 0.5);
+
+      opacity: 0;
+      visibility: hidden;
+      transition:
+        opacity 1s ease,
+        visibility 1s ease;
+    }
+
+    #overlay.visible {
+      opacity: 1;
+      visibility: visible;
     }
 
     #title {
@@ -160,6 +171,17 @@
       color: rgba(255, 255, 255, 0.7);
       font-size: 12px;
       letter-spacing: 1px;
+
+      opacity: 0;
+      visibility: hidden;
+      transition:
+        opacity 1s ease,
+        visibility 1s ease;
+    }
+
+    #connection.visible {
+      opacity: 1;
+      visibility: visible;
     }
   </style>
 </head>
@@ -250,6 +272,11 @@
   </div>
 
   <script>
+    const overlayElement =
+      document.getElementById(
+        "overlay"
+      );
+
     const statusElement =
       document.getElementById(
         "status"
@@ -306,17 +333,69 @@
       );
 
     let socket = null;
+    let hideTimer = null;
+
+    const ROUND_END_DISPLAY_MS = 7000;
+
+    function setOverlayVisible(
+      visible
+    ) {
+      if (visible) {
+        overlayElement.classList.add(
+          "visible"
+        );
+
+        connectionElement.classList.add(
+          "visible"
+        );
+
+        return;
+      }
+
+      overlayElement.classList.remove(
+        "visible"
+      );
+
+      connectionElement.classList.remove(
+        "visible"
+      );
+    }
+
+    function cancelHideTimer() {
+      if (hideTimer) {
+        clearTimeout(hideTimer);
+        hideTimer = null;
+      }
+    }
+
+    function scheduleOverlayHide() {
+      cancelHideTimer();
+
+      hideTimer = setTimeout(() => {
+        setOverlayVisible(false);
+        hideTimer = null;
+      }, ROUND_END_DISPLAY_MS);
+    }
 
     function setConnectionStatus(
       connected
     ) {
-      if (connected) {
-        connectionElement.textContent =
-          "CONNECTED";
-      } else {
-        connectionElement.textContent =
-          "DISCONNECTED";
-      }
+      connectionElement.textContent =
+        connected
+          ? "CONNECTED"
+          : "DISCONNECTED";
+    }
+
+    function toSafeNumber(
+      value,
+      fallback = 0
+    ) {
+      const number =
+        Number(value);
+
+      return Number.isFinite(number)
+        ? number
+        : fallback;
     }
 
     function updateLetters(
@@ -324,18 +403,14 @@
       totalLetters
     ) {
       const revealed =
-        Number.isFinite(
-          Number(revealedCount)
-        )
-          ? Number(revealedCount)
-          : 0;
+        toSafeNumber(
+          revealedCount
+        );
 
       const total =
-        Number.isFinite(
-          Number(totalLetters)
-        )
-          ? Number(totalLetters)
-          : 0;
+        toSafeNumber(
+          totalLetters
+        );
 
       lettersElement.textContent =
         `${revealed}/${total}`;
@@ -348,8 +423,14 @@
         return;
       }
 
+      if (state.active) {
+        cancelHideTimer();
+        setOverlayVisible(true);
+      }
+
       songElement.textContent =
-        state.maskedTitle || "Ready?";
+        state.maskedTitle ||
+        "Ready?";
 
       difficultyElement.textContent =
         state.difficulty
@@ -357,7 +438,9 @@
           : "-";
 
       timerElement.textContent =
-        `${Number(state.remainingSeconds) || 0}s`;
+        `${toSafeNumber(
+          state.remainingSeconds
+        )}s`;
 
       updateLetters(
         state.revealedCount,
@@ -365,7 +448,9 @@
       );
 
       pointsElement.textContent =
-        `${Number(state.maxPoints) || 0}`;
+        `${toSafeNumber(
+          state.maxPoints
+        )}`;
 
       if (state.active) {
         statusElement.textContent =
@@ -394,6 +479,8 @@
           message.state &&
           !message.state.active
         ) {
+          setOverlayVisible(false);
+
           statusElement.textContent =
             "Waiting for a round";
 
@@ -411,6 +498,9 @@
         message.type ===
         "round_started"
       ) {
+        cancelHideTimer();
+        setOverlayVisible(true);
+
         updateRoundState(
           message.state
         );
@@ -431,7 +521,9 @@
         message.type === "timer"
       ) {
         timerElement.textContent =
-          `${Number(message.remainingSeconds) || 0}s`;
+          `${toSafeNumber(
+            message.remainingSeconds
+          )}s`;
 
         return;
       }
@@ -440,6 +532,8 @@
         message.type ===
         "letter_revealed"
       ) {
+        setOverlayVisible(true);
+
         songElement.textContent =
           message.maskedTitle ||
           songElement.textContent;
@@ -449,6 +543,11 @@
           message.totalLetters
         );
 
+        pointsElement.textContent =
+          `${toSafeNumber(
+            message.maxPoints
+          )}`;
+
         return;
       }
 
@@ -456,6 +555,10 @@
         message.type ===
         "round_ended"
       ) {
+        cancelHideTimer();
+
+        setOverlayVisible(true);
+
         statusElement.textContent =
           "Round Over";
 
@@ -472,18 +575,20 @@
         );
 
         songElement.textContent =
-          message.answer || "Round Over";
+          message.answer ||
+          message.songTitle ||
+          "Round Over";
 
         pointsElement.textContent =
           "0";
 
         answerTitleElement.textContent =
-          message.answer || "";
+          message.answer ||
+          message.songTitle ||
+          "";
 
         answerArtistElement.textContent =
-          message.artist
-            ? message.artist
-            : "";
+          message.artist || "";
 
         answerElement.style.display =
           "block";
@@ -496,7 +601,7 @@
             "All letters revealed!";
         } else if (
           message.reason ===
-          "guessed"
+          "correct_guess"
         ) {
           if (
             message.winner
@@ -517,6 +622,8 @@
           messageElement.textContent =
             "Time's up!";
         }
+
+        scheduleOverlayHide();
 
         return;
       }
@@ -609,6 +716,8 @@
         );
 
         if (!state.active) {
+          setOverlayVisible(false);
+
           statusElement.textContent =
             "Waiting for a round";
 
@@ -623,8 +732,12 @@
           "Failed to load initial state:",
           error
         );
+
+        setOverlayVisible(false);
       }
     }
+
+    setOverlayVisible(false);
 
     loadInitialState();
 
