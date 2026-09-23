@@ -123,6 +123,17 @@
       opacity: 0.9;
     }
 
+    #year {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: 4px;
+      opacity: 0.9;
+    }
+
     #stats {
       display: flex;
       justify-content: center;
@@ -178,6 +189,12 @@
       opacity: 0.75;
     }
 
+    #answer-year {
+      margin-top: 6px;
+      font-size: 18px;
+      opacity: 0.7;
+    }
+
     #connection {
       position: fixed;
       right: 20px;
@@ -227,6 +244,18 @@
       </div>
 
       <div id="artist">
+        -
+      </div>
+
+    </div>
+
+    <div class="reveal-section">
+
+      <div class="reveal-label">
+        Year
+      </div>
+
+      <div id="year">
         -
       </div>
 
@@ -295,6 +324,10 @@
         id="answer-artist"
       ></div>
 
+      <div
+        id="answer-year"
+      ></div>
+
     </div>
 
   </div>
@@ -327,6 +360,11 @@
     const artistElement =
       document.getElementById(
         "artist"
+      );
+
+    const yearElement =
+      document.getElementById(
+        "year"
       );
 
     const timerElement =
@@ -362,6 +400,11 @@
     const answerArtistElement =
       document.getElementById(
         "answer-artist"
+      );
+
+    const answerYearElement =
+      document.getElementById(
+        "answer-year"
       );
 
     const connectionElement =
@@ -469,6 +512,10 @@
         state.maskedArtist ||
         "-";
 
+      yearElement.textContent =
+        state.year ||
+        "-";
+
       difficultyElement.textContent =
         state.difficulty
           ? state.difficulty.toUpperCase()
@@ -525,6 +572,9 @@
             "Ready?";
 
           artistElement.textContent =
+            "-";
+
+          yearElement.textContent =
             "-";
 
           messageElement.textContent =
@@ -633,6 +683,10 @@
           message.artist ||
           "";
 
+        yearElement.textContent =
+          message.year ||
+          "-";
+
         pointsElement.textContent =
           "0";
 
@@ -641,6 +695,11 @@
 
         answerArtistElement.textContent =
           message.artist || "";
+
+        answerYearElement.textContent =
+          message.year
+            ? `Year: ${message.year}`
+            : "";
 
         answerElement.style.display =
           "block";
@@ -653,7 +712,7 @@
             "All letters revealed!";
         } else if (
           message.reason ===
-          "guessed"
+          "correct_guess"
         ) {
           if (
             message.winner
@@ -780,6 +839,9 @@
             "Ready?";
 
           artistElement.textContent =
+            "-";
+
+          yearElement.textContent =
             "-";
 
           messageElement.textContent =

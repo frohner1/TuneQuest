@@ -82,9 +82,11 @@ ensureDataFile(SCORES_FILE, {});
 ensureDataFile(STREAKS_FILE, {});
 
 const songs = loadSongs();
+
 const scores = JSON.parse(
   fs.readFileSync(SCORES_FILE, "utf8")
 );
+
 const streaks = JSON.parse(
   fs.readFileSync(STREAKS_FILE, "utf8")
 );
@@ -191,7 +193,7 @@ class TuneQuest {
       res.json({
         ok: true,
         game: "TuneQuest",
-        build: "0.0.12",
+        build: "0.0.13",
         roundActive: Boolean(this.current),
         roundNumber: this.roundNumber,
         songCount: songs.length
@@ -289,6 +291,7 @@ class TuneQuest {
         difficulty: null,
         maskedTitle: "",
         maskedArtist: "",
+        year: null,
         revealedCount: 0,
         totalLetters: 0,
         artistRevealedCount: 0,
@@ -305,6 +308,7 @@ class TuneQuest {
       difficulty: this.current.difficulty,
       maskedTitle: this.getMaskedTitle(),
       maskedArtist: this.getMaskedArtist(),
+      year: this.current.song.year || null,
       revealedCount:
         this.current.revealedTitleLetters.size,
       totalLetters:
@@ -761,6 +765,9 @@ class TuneQuest {
       artist:
         endedSong.artist || "",
 
+      year:
+        endedSong.year || null,
+
       answer:
         endedSong.title,
 
@@ -775,7 +782,10 @@ class TuneQuest {
           endedSong.title,
 
         maskedArtist:
-          endedSong.artist || ""
+          endedSong.artist || "",
+
+        year:
+          endedSong.year || null
       }
     });
   }
@@ -836,7 +846,7 @@ class TuneQuest {
       PORT,
       () => {
         console.log(
-          `TuneQuest Build 0.0.12 running on port ${PORT}`
+          `TuneQuest Build 0.0.13 running on port ${PORT}`
         );
 
         console.log(
