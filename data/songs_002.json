@@ -1,0 +1,917 @@
+[
+  {
+    "title": "Superstition",
+    "artist": "Stevie Wonder",
+    "year": 1972,
+    "difficulty": "easy",
+    "aliases": [
+      "superstition"
+    ]
+  },
+  {
+    "title": "Dream On",
+    "artist": "Aerosmith",
+    "year": 1973,
+    "difficulty": "easy",
+    "aliases": [
+      "dream on"
+    ]
+  },
+  {
+    "title": "Go Your Own Way",
+    "artist": "Fleetwood Mac",
+    "year": 1977,
+    "difficulty": "easy",
+    "aliases": [
+      "go your own way"
+    ]
+  },
+  {
+    "title": "Barracuda",
+    "artist": "Heart",
+    "year": 1977,
+    "difficulty": "medium",
+    "aliases": [
+      "barracuda"
+    ]
+  },
+  {
+    "title": "Carry on Wayward Son",
+    "artist": "Kansas",
+    "year": 1976,
+    "difficulty": "easy",
+    "aliases": [
+      "carry on wayward son",
+      "carry on"
+    ]
+  },
+  {
+    "title": "Don't Fear the Reaper",
+    "artist": "Blue Öyster Cult",
+    "year": 1976,
+    "difficulty": "medium",
+    "aliases": [
+      "dont fear the reaper",
+      "don't fear the reaper"
+    ]
+  },
+  {
+    "title": "Runnin' with the Devil",
+    "artist": "Van Halen",
+    "year": 1978,
+    "difficulty": "medium",
+    "aliases": [
+      "runnin with the devil",
+      "running with the devil"
+    ]
+  },
+  {
+    "title": "The Boys Are Back in Town",
+    "artist": "Thin Lizzy",
+    "year": 1976,
+    "difficulty": "medium",
+    "aliases": [
+      "the boys are back in town"
+    ]
+  },
+  {
+    "title": "Sultans of Swing",
+    "artist": "Dire Straits",
+    "year": 1978,
+    "difficulty": "medium",
+    "aliases": [
+      "sultans of swing"
+    ]
+  },
+  {
+    "title": "We Will Rock You",
+    "artist": "Queen",
+    "year": 1977,
+    "difficulty": "easy",
+    "aliases": [
+      "we will rock you"
+    ]
+  },
+  {
+    "title": "Another One Bites the Dust",
+    "artist": "Queen",
+    "year": 1980,
+    "difficulty": "easy",
+    "aliases": [
+      "another one bites the dust"
+    ]
+  },
+  {
+    "title": "The Final Countdown",
+    "artist": "Europe",
+    "year": 1986,
+    "difficulty": "easy",
+    "aliases": [
+      "the final countdown"
+    ]
+  },
+  {
+    "title": "Pour Some Sugar on Me",
+    "artist": "Def Leppard",
+    "year": 1987,
+    "difficulty": "easy",
+    "aliases": [
+      "pour some sugar on me"
+    ]
+  },
+  {
+    "title": "Every Rose Has Its Thorn",
+    "artist": "Poison",
+    "year": 1988,
+    "difficulty": "medium",
+    "aliases": [
+      "every rose has its thorn"
+    ]
+  },
+  {
+    "title": "Wanted Dead or Alive",
+    "artist": "Bon Jovi",
+    "year": 1986,
+    "difficulty": "easy",
+    "aliases": [
+      "wanted dead or alive"
+    ]
+  },
+  {
+    "title": "Here I Go Again",
+    "artist": "Whitesnake",
+    "year": 1982,
+    "difficulty": "easy",
+    "aliases": [
+      "here i go again"
+    ]
+  },
+  {
+    "title": "Jump",
+    "artist": "Van Halen",
+    "year": 1984,
+    "difficulty": "easy",
+    "aliases": [
+      "jump"
+    ]
+  },
+  {
+    "title": "I Love Rock 'n Roll",
+    "artist": "Joan Jett & the Blackhearts",
+    "year": 1981,
+    "difficulty": "easy",
+    "aliases": [
+      "i love rock n roll",
+      "i love rock and roll"
+    ]
+  },
+  {
+    "title": "Wake Me Up Before You Go-Go",
+    "artist": "Wham!",
+    "year": 1984,
+    "difficulty": "medium",
+    "aliases": [
+      "wake me up before you go go"
+    ]
+  },
+  {
+    "title": "Girls Just Want to Have Fun",
+    "artist": "Cyndi Lauper",
+    "year": 1983,
+    "difficulty": "easy",
+    "aliases": [
+      "girls just want to have fun"
+    ]
+  },
+  {
+    "title": "Material Girl",
+    "artist": "Madonna",
+    "year": 1984,
+    "difficulty": "easy",
+    "aliases": [
+      "material girl"
+    ]
+  },
+  {
+    "title": "Like a Prayer",
+    "artist": "Madonna",
+    "year": 1989,
+    "difficulty": "easy",
+    "aliases": [
+      "like a prayer"
+    ]
+  },
+  {
+    "title": "With or Without You",
+    "artist": "U2",
+    "year": 1987,
+    "difficulty": "easy",
+    "aliases": [
+      "with or without you"
+    ]
+  },
+  {
+    "title": "Where the Streets Have No Name",
+    "artist": "U2",
+    "year": 1987,
+    "difficulty": "medium",
+    "aliases": [
+      "where the streets have no name"
+    ]
+  },
+  {
+    "title": "You Spin Me Round",
+    "artist": "Dead or Alive",
+    "year": 1984,
+    "difficulty": "medium",
+    "aliases": [
+      "you spin me round",
+      "you spin me round like a record"
+    ]
+  },
+  {
+    "title": "99 Luftballons",
+    "artist": "Nena",
+    "year": 1983,
+    "difficulty": "hard",
+    "aliases": [
+      "99 luftballons",
+      "99 red balloons"
+    ]
+  },
+  {
+    "title": "Rosanna",
+    "artist": "Toto",
+    "year": 1982,
+    "difficulty": "medium",
+    "aliases": [
+      "rosanna"
+    ]
+  },
+  {
+    "title": "The Boys of Summer",
+    "artist": "Don Henley",
+    "year": 1984,
+    "difficulty": "medium",
+    "aliases": [
+      "the boys of summer"
+    ]
+  },
+  {
+    "title": "Summer of '69",
+    "artist": "Bryan Adams",
+    "year": 1984,
+    "difficulty": "easy",
+    "aliases": [
+      "summer of 69",
+      "summer of 69"
+    ]
+  },
+  {
+    "title": "Faithfully",
+    "artist": "Journey",
+    "year": 1983,
+    "difficulty": "medium",
+    "aliases": [
+      "faithfully"
+    ]
+  },
+  {
+    "title": "Separate Ways",
+    "artist": "Journey",
+    "year": 1983,
+    "difficulty": "easy",
+    "aliases": [
+      "separate ways",
+      "separate ways worlds apart"
+    ]
+  },
+  {
+    "title": "Heaven",
+    "artist": "Bryan Adams",
+    "year": 1984,
+    "difficulty": "easy",
+    "aliases": [
+      "heaven"
+    ]
+  },
+  {
+    "title": "Man in the Mirror",
+    "artist": "Michael Jackson",
+    "year": 1987,
+    "difficulty": "medium",
+    "aliases": [
+      "man in the mirror"
+    ]
+  },
+  {
+    "title": "Beat It",
+    "artist": "Michael Jackson",
+    "year": 1982,
+    "difficulty": "easy",
+    "aliases": [
+      "beat it"
+    ]
+  },
+  {
+    "title": "Thriller",
+    "artist": "Michael Jackson",
+    "year": 1982,
+    "difficulty": "easy",
+    "aliases": [
+      "thriller"
+    ]
+  },
+  {
+    "title": "Purple Rain",
+    "artist": "Prince",
+    "year": 1984,
+    "difficulty": "easy",
+    "aliases": [
+      "purple rain"
+    ]
+  },
+  {
+    "title": "Kiss",
+    "artist": "Prince",
+    "year": 1986,
+    "difficulty": "easy",
+    "aliases": [
+      "kiss"
+    ]
+  },
+  {
+    "title": "Everybody Wants You",
+    "artist": "Billy Squier",
+    "year": 1981,
+    "difficulty": "medium",
+    "aliases": [
+      "everybody wants you"
+    ]
+  },
+  {
+    "title": "Sweet Dreams (Are Made of This)",
+    "artist": "Eurythmics",
+    "year": 1983,
+    "difficulty": "easy",
+    "aliases": [
+      "sweet dreams",
+      "sweet dreams are made of this"
+    ]
+  },
+  {
+    "title": "Hunger Strike",
+    "artist": "Temple of the Dog",
+    "year": 1991,
+    "difficulty": "medium",
+    "aliases": [
+      "hunger strike"
+    ]
+  },
+  {
+    "title": "Jeremy",
+    "artist": "Pearl Jam",
+    "year": 1991,
+    "difficulty": "medium",
+    "aliases": [
+      "jeremy"
+    ]
+  },
+  {
+    "title": "Man in the Box",
+    "artist": "Alice in Chains",
+    "year": 1990,
+    "difficulty": "medium",
+    "aliases": [
+      "man in the box"
+    ]
+  },
+  {
+    "title": "Would?",
+    "artist": "Alice in Chains",
+    "year": 1992,
+    "difficulty": "hard",
+    "aliases": [
+      "would"
+    ]
+  },
+  {
+    "title": "Plush",
+    "artist": "Stone Temple Pilots",
+    "year": 1992,
+    "difficulty": "easy",
+    "aliases": [
+      "plush"
+    ]
+  },
+  {
+    "title": "Interstate Love Song",
+    "artist": "Stone Temple Pilots",
+    "year": 1994,
+    "difficulty": "medium",
+    "aliases": [
+      "interstate love song"
+    ]
+  },
+  {
+    "title": "Down in a Hole",
+    "artist": "Alice in Chains",
+    "year": 1992,
+    "difficulty": "hard",
+    "aliases": [
+      "down in a hole"
+    ]
+  },
+  {
+    "title": "Glycerine",
+    "artist": "Bush",
+    "year": 1994,
+    "difficulty": "medium",
+    "aliases": [
+      "glycerine"
+    ]
+  },
+  {
+    "title": "Machinehead",
+    "artist": "Bush",
+    "year": 1996,
+    "difficulty": "medium",
+    "aliases": [
+      "machinehead"
+    ]
+  },
+  {
+    "title": "My Own Prison",
+    "artist": "Creed",
+    "year": 1997,
+    "difficulty": "medium",
+    "aliases": [
+      "my own prison"
+    ]
+  },
+  {
+    "title": "Higher",
+    "artist": "Creed",
+    "year": 1999,
+    "difficulty": "easy",
+    "aliases": [
+      "higher"
+    ]
+  },
+  {
+    "title": "With Arms Wide Open",
+    "artist": "Creed",
+    "year": 2000,
+    "difficulty": "medium",
+    "aliases": [
+      "with arms wide open"
+    ]
+  },
+  {
+    "title": "Bother",
+    "artist": "Stone Sour",
+    "year": 2002,
+    "difficulty": "medium",
+    "aliases": [
+      "bother"
+    ]
+  },
+  {
+    "title": "Through Glass",
+    "artist": "Stone Sour",
+    "year": 2006,
+    "difficulty": "medium",
+    "aliases": [
+      "through glass"
+    ]
+  },
+  {
+    "title": "Like a Stone",
+    "artist": "Audioslave",
+    "year": 2002,
+    "difficulty": "easy",
+    "aliases": [
+      "like a stone"
+    ]
+  },
+  {
+    "title": "Be Yourself",
+    "artist": "Audioslave",
+    "year": 2005,
+    "difficulty": "medium",
+    "aliases": [
+      "be yourself"
+    ]
+  },
+  {
+    "title": "The Red",
+    "artist": "Chevelle",
+    "year": 2002,
+    "difficulty": "medium",
+    "aliases": [
+      "the red"
+    ]
+  },
+  {
+    "title": "Send the Pain Below",
+    "artist": "Chevelle",
+    "year": 2002,
+    "difficulty": "medium",
+    "aliases": [
+      "send the pain below"
+    ]
+  },
+  {
+    "title": "The Downfall of Us All",
+    "artist": "A Day to Remember",
+    "year": 2009,
+    "difficulty": "hard",
+    "aliases": [
+      "the downfall of us all"
+    ]
+  },
+  {
+    "title": "If It Means a Lot to You",
+    "artist": "A Day to Remember",
+    "year": 2009,
+    "difficulty": "medium",
+    "aliases": [
+      "if it means a lot to you"
+    ]
+  },
+  {
+    "title": "The Diary of Jane",
+    "artist": "Breaking Benjamin",
+    "year": 2006,
+    "difficulty": "medium",
+    "aliases": [
+      "the diary of jane",
+      "diary of jane"
+    ]
+  },
+  {
+    "title": "So Cold",
+    "artist": "Breaking Benjamin",
+    "year": 2004,
+    "difficulty": "medium",
+    "aliases": [
+      "so cold"
+    ]
+  },
+  {
+    "title": "I Will Not Bow",
+    "artist": "Breaking Benjamin",
+    "year": 2009,
+    "difficulty": "medium",
+    "aliases": [
+      "i will not bow"
+    ]
+  },
+  {
+    "title": "Monster",
+    "artist": "Skillet",
+    "year": 2009,
+    "difficulty": "easy",
+    "aliases": [
+      "monster"
+    ]
+  },
+  {
+    "title": "Hero",
+    "artist": "Skillet",
+    "year": 2009,
+    "difficulty": "easy",
+    "aliases": [
+      "hero"
+    ]
+  },
+  {
+    "title": "Comatose",
+    "artist": "Skillet",
+    "year": 2006,
+    "difficulty": "medium",
+    "aliases": [
+      "comatose"
+    ]
+  },
+  {
+    "title": "The Kill (Bury Me)",
+    "artist": "Thirty Seconds to Mars",
+    "year": 2005,
+    "difficulty": "medium",
+    "aliases": [
+      "the kill",
+      "the kill bury me"
+    ]
+  },
+  {
+    "title": "Kings and Queens",
+    "artist": "Thirty Seconds to Mars",
+    "year": 2009,
+    "difficulty": "medium",
+    "aliases": [
+      "kings and queens"
+    ]
+  },
+  {
+    "title": "The Hand That Feeds",
+    "artist": "Nine Inch Nails",
+    "year": 2005,
+    "difficulty": "medium",
+    "aliases": [
+      "the hand that feeds"
+    ]
+  },
+  {
+    "title": "Head Like a Hole",
+    "artist": "Nine Inch Nails",
+    "year": 1989,
+    "difficulty": "medium",
+    "aliases": [
+      "head like a hole"
+    ]
+  },
+  {
+    "title": "Down in It",
+    "artist": "Nine Inch Nails",
+    "year": 1989,
+    "difficulty": "hard",
+    "aliases": [
+      "down in it"
+    ]
+  },
+  {
+    "title": "Last Resort",
+    "artist": "Papa Roach",
+    "year": 2000,
+    "difficulty": "easy",
+    "aliases": [
+      "last resort"
+    ]
+  },
+  {
+    "title": "Scars",
+    "artist": "Papa Roach",
+    "year": 2004,
+    "difficulty": "medium",
+    "aliases": [
+      "scars"
+    ]
+  },
+  {
+    "title": "Bodies",
+    "artist": "Drowning Pool",
+    "year": 2001,
+    "difficulty": "easy",
+    "aliases": [
+      "bodies"
+    ]
+  },
+  {
+    "title": "Click Click Boom",
+    "artist": "Saliva",
+    "year": 2001,
+    "difficulty": "medium",
+    "aliases": [
+      "click click boom"
+    ]
+  },
+  {
+    "title": "Youth of the Nation",
+    "artist": "P.O.D.",
+    "year": 2001,
+    "difficulty": "medium",
+    "aliases": [
+      "youth of the nation"
+    ]
+  },
+  {
+    "title": "Hemorrhage (In My Hands)",
+    "artist": "Fuel",
+    "year": 2000,
+    "difficulty": "hard",
+    "aliases": [
+      "hemorrhage in my hands",
+      "hemorrhage"
+    ]
+  },
+  {
+    "title": "Shimmer",
+    "artist": "Fuel",
+    "year": 1998,
+    "difficulty": "medium",
+    "aliases": [
+      "shimmer"
+    ]
+  },
+  {
+    "title": "Blurry",
+    "artist": "Puddle of Mudd",
+    "year": 2001,
+    "difficulty": "easy",
+    "aliases": [
+      "blurry"
+    ]
+  },
+  {
+    "title": "She Hates Me",
+    "artist": "Puddle of Mudd",
+    "year": 2001,
+    "difficulty": "easy",
+    "aliases": [
+      "she hates me"
+    ]
+  },
+  {
+    "title": "Kryptonite",
+    "artist": "3 Doors Down",
+    "year": 2000,
+    "difficulty": "easy",
+    "aliases": [
+      "kryptonite"
+    ]
+  },
+  {
+    "title": "Here Without You",
+    "artist": "3 Doors Down",
+    "year": 2002,
+    "difficulty": "easy",
+    "aliases": [
+      "here without you"
+    ]
+  },
+  {
+    "title": "When I'm Gone",
+    "artist": "3 Doors Down",
+    "year": 2002,
+    "difficulty": "medium",
+    "aliases": [
+      "when im gone",
+      "when i'm gone"
+    ]
+  },
+  {
+    "title": "How You Remind Me",
+    "artist": "Nickelback",
+    "year": 2001,
+    "difficulty": "easy",
+    "aliases": [
+      "how you remind me"
+    ]
+  },
+  {
+    "title": "Photograph",
+    "artist": "Nickelback",
+    "year": 2005,
+    "difficulty": "easy",
+    "aliases": [
+      "photograph"
+    ]
+  },
+  {
+    "title": "Far Away",
+    "artist": "Nickelback",
+    "year": 2005,
+    "difficulty": "medium",
+    "aliases": [
+      "far away"
+    ]
+  },
+  {
+    "title": "Stacy's Mom",
+    "artist": "Fountains of Wayne",
+    "year": 2003,
+    "difficulty": "easy",
+    "aliases": [
+      "stacys mom",
+      "stacy's mom"
+    ]
+  },
+  {
+    "title": "1985",
+    "artist": "Bowling for Soup",
+    "year": 2004,
+    "difficulty": "easy",
+    "aliases": [
+      "1985"
+    ]
+  },
+  {
+    "title": "The Anthem",
+    "artist": "Good Charlotte",
+    "year": 2002,
+    "difficulty": "easy",
+    "aliases": [
+      "the anthem"
+    ]
+  },
+  {
+    "title": "Lifestyles of the Rich & Famous",
+    "artist": "Good Charlotte",
+    "year": 2002,
+    "difficulty": "medium",
+    "aliases": [
+      "lifestyles of the rich and famous",
+      "lifestyles of the rich famous"
+    ]
+  },
+  {
+    "title": "Face Down",
+    "artist": "The Red Jumpsuit Apparatus",
+    "year": 2006,
+    "difficulty": "medium",
+    "aliases": [
+      "face down"
+    ]
+  },
+  {
+    "title": "Check Yes Juliet",
+    "artist": "We the Kings",
+    "year": 2007,
+    "difficulty": "medium",
+    "aliases": [
+      "check yes juliet"
+    ]
+  },
+  {
+    "title": "Dear Maria, Count Me In",
+    "artist": "All Time Low",
+    "year": 2008,
+    "difficulty": "medium",
+    "aliases": [
+      "dear maria count me in"
+    ]
+  },
+  {
+    "title": "The Chain",
+    "artist": "Fleetwood Mac",
+    "year": 1977,
+    "difficulty": "medium",
+    "aliases": [
+      "the chain"
+    ]
+  },
+  {
+    "title": "Dreams",
+    "artist": "Fleetwood Mac",
+    "year": 1977,
+    "difficulty": "easy",
+    "aliases": [
+      "dreams"
+    ]
+  },
+  {
+    "title": "Rebel Yell",
+    "artist": "Billy Idol",
+    "year": 1983,
+    "difficulty": "medium",
+    "aliases": [
+      "rebel yell"
+    ]
+  },
+  {
+    "title": "Dancing in the Dark",
+    "artist": "Bruce Springsteen",
+    "year": 1984,
+    "difficulty": "easy",
+    "aliases": [
+      "dancing in the dark"
+    ]
+  },
+  {
+    "title": "Money for Nothing",
+    "artist": "Dire Straits",
+    "year": 1985,
+    "difficulty": "medium",
+    "aliases": [
+      "money for nothing"
+    ]
+  },
+  {
+    "title": "Enjoy the Silence",
+    "artist": "Depeche Mode",
+    "year": 1990,
+    "difficulty": "medium",
+    "aliases": [
+      "enjoy the silence"
+    ]
+  },
+  {
+    "title": "Possum Kingdom",
+    "artist": "The Toadies",
+    "year": 1994,
+    "difficulty": "hard",
+    "aliases": [
+      "possum kingdom"
+    ]
+  },
+  {
+    "title": "Sex and Candy",
+    "artist": "Marcy Playground",
+    "year": 1997,
+    "difficulty": "medium",
+    "aliases": [
+      "sex and candy"
+    ]
+  }
+]
