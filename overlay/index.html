@@ -51,17 +51,13 @@
       border-radius: 24px;
       box-shadow:
         0 20px 60px rgba(0, 0, 0, 0.5);
-
-      opacity: 0;
-      visibility: hidden;
-      transition:
-        opacity 1s ease,
-        visibility 1s ease;
+      opacity: 1;
+      transition: opacity 1s ease;
     }
 
-    #overlay.visible {
-      opacity: 1;
-      visibility: visible;
+    #overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
     }
 
     #title {
@@ -92,18 +88,39 @@
       text-transform: uppercase;
     }
 
-    #song {
-      min-height: 100px;
-      margin: 10px 0 30px;
+    .reveal-section {
+      margin: 10px 0 28px;
+    }
+
+    .reveal-label {
+      margin-bottom: 8px;
+      font-size: 16px;
+      font-weight: 900;
+      opacity: 0.65;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+
+    #song,
+    #artist {
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 46px;
+      min-height: 70px;
       font-weight: 800;
       letter-spacing: 5px;
       word-spacing: 10px;
       line-height: 1.35;
       white-space: pre-wrap;
+    }
+
+    #song {
+      font-size: 46px;
+    }
+
+    #artist {
+      font-size: 32px;
+      opacity: 0.9;
     }
 
     #stats {
@@ -171,17 +188,6 @@
       color: rgba(255, 255, 255, 0.7);
       font-size: 12px;
       letter-spacing: 1px;
-
-      opacity: 0;
-      visibility: hidden;
-      transition:
-        opacity 1s ease,
-        visibility 1s ease;
-    }
-
-    #connection.visible {
-      opacity: 1;
-      visibility: visible;
     }
   </style>
 </head>
@@ -202,13 +208,34 @@
       -
     </div>
 
-    <div id="song">
-      Ready?
+    <div class="reveal-section">
+
+      <div class="reveal-label">
+        Song
+      </div>
+
+      <div id="song">
+        Ready?
+      </div>
+
+    </div>
+
+    <div class="reveal-section">
+
+      <div class="reveal-label">
+        Artist
+      </div>
+
+      <div id="artist">
+        -
+      </div>
+
     </div>
 
     <div id="stats">
 
       <div class="stat">
+
         <div class="stat-label">
           Time
         </div>
@@ -219,9 +246,11 @@
         >
           0s
         </div>
+
       </div>
 
       <div class="stat">
+
         <div class="stat-label">
           Letters
         </div>
@@ -232,9 +261,11 @@
         >
           0/0
         </div>
+
       </div>
 
       <div class="stat">
+
         <div class="stat-label">
           Max Points
         </div>
@@ -245,6 +276,7 @@
         >
           0
         </div>
+
       </div>
 
     </div>
@@ -292,6 +324,11 @@
         "song"
       );
 
+    const artistElement =
+      document.getElementById(
+        "artist"
+      );
+
     const timerElement =
       document.getElementById(
         "timer"
@@ -333,48 +370,35 @@
       );
 
     let socket = null;
+
     let hideTimer = null;
 
-    const ROUND_END_DISPLAY_MS = 7000;
-
-    function setOverlayVisible(
-      visible
-    ) {
-      if (visible) {
-        overlayElement.classList.add(
-          "visible"
-        );
-
-        connectionElement.classList.add(
-          "visible"
-        );
-
-        return;
-      }
-
-      overlayElement.classList.remove(
-        "visible"
-      );
-
-      connectionElement.classList.remove(
-        "visible"
-      );
-    }
-
-    function cancelHideTimer() {
+    function showOverlay() {
       if (hideTimer) {
         clearTimeout(hideTimer);
         hideTimer = null;
       }
+
+      overlayElement.classList.remove(
+        "hidden"
+      );
     }
 
-    function scheduleOverlayHide() {
-      cancelHideTimer();
+    function hideOverlayAfterDelay() {
+      if (hideTimer) {
+        clearTimeout(hideTimer);
+      }
 
-      hideTimer = setTimeout(() => {
-        setOverlayVisible(false);
-        hideTimer = null;
-      }, ROUND_END_DISPLAY_MS);
+      hideTimer = setTimeout(
+        () => {
+          overlayElement.classList.add(
+            "hidden"
+          );
+
+          hideTimer = null;
+        },
+        7000
+      );
     }
 
     function setConnectionStatus(
@@ -416,6 +440,20 @@
         `${revealed}/${total}`;
     }
 
+    function calculateDisplayedPoints(
+      revealedCount
+    ) {
+      const revealed =
+        toSafeNumber(
+          revealedCount
+        );
+
+      return Math.max(
+        10,
+        100 - revealed * 10
+      );
+    }
+
     function updateRoundState(
       state
     ) {
@@ -423,14 +461,13 @@
         return;
       }
 
-      if (state.active) {
-        cancelHideTimer();
-        setOverlayVisible(true);
-      }
-
       songElement.textContent =
         state.maskedTitle ||
         "Ready?";
+
+      artistElement.textContent =
+        state.maskedArtist ||
+        "-";
 
       difficultyElement.textContent =
         state.difficulty
@@ -453,6 +490,8 @@
         )}`;
 
       if (state.active) {
+        showOverlay();
+
         statusElement.textContent =
           "Guess the song";
 
@@ -479,13 +518,14 @@
           message.state &&
           !message.state.active
         ) {
-          setOverlayVisible(false);
-
           statusElement.textContent =
             "Waiting for a round";
 
           songElement.textContent =
             "Ready?";
+
+          artistElement.textContent =
+            "-";
 
           messageElement.textContent =
             "Start a round with !tune";
@@ -498,8 +538,7 @@
         message.type ===
         "round_started"
       ) {
-        cancelHideTimer();
-        setOverlayVisible(true);
+        showOverlay();
 
         updateRoundState(
           message.state
@@ -532,21 +571,35 @@
         message.type ===
         "letter_revealed"
       ) {
-        setOverlayVisible(true);
+        showOverlay();
 
         songElement.textContent =
           message.maskedTitle ||
           songElement.textContent;
+
+        artistElement.textContent =
+          message.maskedArtist ||
+          artistElement.textContent;
 
         updateLetters(
           message.revealedCount,
           message.totalLetters
         );
 
-        pointsElement.textContent =
-          `${toSafeNumber(
-            message.maxPoints
-          )}`;
+        if (
+          message.maxPoints !==
+          undefined
+        ) {
+          pointsElement.textContent =
+            `${toSafeNumber(
+              message.maxPoints
+            )}`;
+        } else {
+          pointsElement.textContent =
+            `${calculateDisplayedPoints(
+              message.revealedCount
+            )}`;
+        }
 
         return;
       }
@@ -555,9 +608,7 @@
         message.type ===
         "round_ended"
       ) {
-        cancelHideTimer();
-
-        setOverlayVisible(true);
+        showOverlay();
 
         statusElement.textContent =
           "Round Over";
@@ -576,16 +627,17 @@
 
         songElement.textContent =
           message.answer ||
-          message.songTitle ||
           "Round Over";
+
+        artistElement.textContent =
+          message.artist ||
+          "";
 
         pointsElement.textContent =
           "0";
 
         answerTitleElement.textContent =
-          message.answer ||
-          message.songTitle ||
-          "";
+          message.answer || "";
 
         answerArtistElement.textContent =
           message.artist || "";
@@ -601,7 +653,7 @@
             "All letters revealed!";
         } else if (
           message.reason ===
-          "correct_guess"
+          "guessed"
         ) {
           if (
             message.winner
@@ -623,7 +675,12 @@
             "Time's up!";
         }
 
-        scheduleOverlayHide();
+        /*
+         * Keep the completed round visible for
+         * 7 seconds, then fade the entire overlay
+         * out over 1 second.
+         */
+        hideOverlayAfterDelay();
 
         return;
       }
@@ -716,13 +773,14 @@
         );
 
         if (!state.active) {
-          setOverlayVisible(false);
-
           statusElement.textContent =
             "Waiting for a round";
 
           songElement.textContent =
             "Ready?";
+
+          artistElement.textContent =
+            "-";
 
           messageElement.textContent =
             "Start a round with !tune";
@@ -732,12 +790,8 @@
           "Failed to load initial state:",
           error
         );
-
-        setOverlayVisible(false);
       }
     }
-
-    setOverlayVisible(false);
 
     loadInitialState();
 
