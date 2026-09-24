@@ -13,6 +13,8 @@ const REVEAL_INTERVAL_SECONDS = Number(
   process.env.REVEAL_INTERVAL_SECONDS || 5
 );
 
+const RECENT_SONG_LIMIT = 50;
+
 const DATA_DIR = path.join(__dirname, "..", "data");
 const SCORES_FILE = path.join(DATA_DIR, "scores.json");
 const STREAKS_FILE = path.join(DATA_DIR, "streaks.json");
@@ -111,6 +113,12 @@ function normalizeUsername(username) {
   return String(username || "").trim().toLowerCase();
 }
 
+function normalizeSongTitle(title) {
+  return String(title || "")
+    .trim()
+    .toLowerCase();
+}
+
 function getPlayerStreak(username) {
   const key = normalizeUsername(username);
 
@@ -170,6 +178,9 @@ class TuneQuest {
     this.current = null;
     this.roundNumber = 0;
     this.lastSongTitle = null;
+
+    this.recentSongs = [];
+
     this.clients = new Set();
 
     this.app = express();
@@ -193,10 +204,12 @@ class TuneQuest {
       res.json({
         ok: true,
         game: "TuneQuest",
-        build: "0.0.13",
+        build: "0.0.14",
         roundActive: Boolean(this.current),
         roundNumber: this.roundNumber,
-        songCount: songs.length
+        songCount: songs.length,
+        recentSongCount: this.recentSongs.length,
+        recentSongLimit: RECENT_SONG_LIMIT
       });
     });
 
@@ -355,12 +368,43 @@ class TuneQuest {
       return null;
     }
 
-    let candidates = available.filter(
-      (song) => song.title !== this.lastSongTitle
-    );
+    const recentTitles =
+      new Set(
+        this.recentSongs.map(
+          (title) => normalizeSongTitle(title)
+        )
+      );
 
+    let candidates =
+      available.filter(
+        (song) =>
+          !recentTitles.has(
+            normalizeSongTitle(song.title)
+          )
+      );
+
+    /*
+     * If the entire difficulty pool is inside the
+     * 50-round protection window, allow reuse rather
+     * than preventing a new round from starting.
+     */
     if (candidates.length === 0) {
       candidates = available;
+    }
+
+    /*
+     * Avoid immediately repeating the previous song
+     * whenever another option exists.
+     */
+    const nonImmediateRepeat =
+      candidates.filter(
+        (song) =>
+          normalizeSongTitle(song.title) !==
+          normalizeSongTitle(this.lastSongTitle)
+      );
+
+    if (nonImmediateRepeat.length > 0) {
+      candidates = nonImmediateRepeat;
     }
 
     const index = Math.floor(
@@ -368,6 +412,30 @@ class TuneQuest {
     );
 
     return candidates[index];
+  }
+
+  rememberSong(song) {
+    const normalizedTitle =
+      normalizeSongTitle(song.title);
+
+    this.recentSongs =
+      this.recentSongs.filter(
+        (title) =>
+          normalizeSongTitle(title) !==
+          normalizedTitle
+      );
+
+    this.recentSongs.push(song.title);
+
+    if (
+      this.recentSongs.length >
+      RECENT_SONG_LIMIT
+    ) {
+      this.recentSongs =
+        this.recentSongs.slice(
+          -RECENT_SONG_LIMIT
+        );
+    }
   }
 
   startRound(difficulty = null) {
@@ -437,6 +505,8 @@ class TuneQuest {
 
     this.roundNumber += 1;
     this.lastSongTitle = song.title;
+
+    this.rememberSong(song);
 
     this.current = {
       song,
@@ -846,7 +916,7 @@ class TuneQuest {
       PORT,
       () => {
         console.log(
-          `TuneQuest Build 0.0.13 running on port ${PORT}`
+          `TuneQuest Build 0.0.14 running on port ${PORT}`
         );
 
         console.log(
@@ -863,6 +933,10 @@ class TuneQuest {
 
         console.log(
           "Scoring: Easy 60/-15 | Medium 75/-10 | Hard 90/-5"
+        );
+
+        console.log(
+          `Song repeat protection: ${RECENT_SONG_LIMIT} rounds`
         );
       }
     );
