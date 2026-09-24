@@ -124,14 +124,11 @@
     }
 
     #year {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 42px;
-      font-size: 28px;
-      font-weight: 900;
-      letter-spacing: 4px;
-      opacity: 0.9;
+      margin-top: 10px;
+      font-size: 20px;
+      font-weight: 800;
+      opacity: 0.7;
+      letter-spacing: 3px;
     }
 
     #stats {
@@ -192,7 +189,78 @@
     #answer-year {
       margin-top: 6px;
       font-size: 18px;
+      font-weight: 800;
+      opacity: 0.6;
+      letter-spacing: 2px;
+    }
+
+    /*
+     * Round winner panel
+     */
+
+    #winner-panel {
+      position: fixed;
+      left: 30px;
+      top: 50%;
+      width: 280px;
+      padding: 28px 24px;
+      transform:
+        translateY(-50%)
+        translateX(0);
+      color: white;
+      text-align: center;
+      background:
+        linear-gradient(
+          145deg,
+          rgba(20, 20, 30, 0.98),
+          rgba(45, 25, 65, 0.98)
+        );
+      border: 2px solid rgba(255, 255, 255, 0.18);
+      border-radius: 20px;
+      box-shadow:
+        0 18px 50px rgba(0, 0, 0, 0.55);
+      opacity: 1;
+      transition:
+        opacity 1s ease,
+        transform 1s ease;
+      z-index: 10;
+    }
+
+    #winner-panel.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform:
+        translateY(-50%)
+        translateX(-25px);
+    }
+
+    #winner-title {
+      margin-bottom: 18px;
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: 3px;
+      text-transform: uppercase;
       opacity: 0.7;
+    }
+
+    #winner-name {
+      margin-bottom: 18px;
+      font-size: 32px;
+      font-weight: 900;
+      line-height: 1.1;
+      overflow-wrap: anywhere;
+    }
+
+    #winner-streak {
+      margin-bottom: 10px;
+      font-size: 23px;
+      font-weight: 900;
+    }
+
+    #winner-points {
+      font-size: 21px;
+      font-weight: 800;
+      opacity: 0.9;
     }
 
     #connection {
@@ -205,6 +273,49 @@
       color: rgba(255, 255, 255, 0.7);
       font-size: 12px;
       letter-spacing: 1px;
+      z-index: 20;
+    }
+
+    @media (
+      max-width: 1400px
+    ) {
+      #winner-panel {
+        left: 18px;
+        width: 240px;
+        padding: 24px 18px;
+      }
+
+      #winner-name {
+        font-size: 28px;
+      }
+
+      #winner-streak {
+        font-size: 20px;
+      }
+
+      #winner-points {
+        font-size: 18px;
+      }
+    }
+
+    @media (
+      max-width: 1000px
+    ) {
+      #winner-panel {
+        left: 50%;
+        top: auto;
+        bottom: 20px;
+        width: 260px;
+        transform:
+          translateX(-50%)
+          translateY(0);
+      }
+
+      #winner-panel.hidden {
+        transform:
+          translateX(-50%)
+          translateY(25px);
+      }
     }
   </style>
 </head>
@@ -245,14 +356,6 @@
 
       <div id="artist">
         -
-      </div>
-
-    </div>
-
-    <div class="reveal-section">
-
-      <div class="reveal-label">
-        Year
       </div>
 
       <div id="year">
@@ -316,18 +419,35 @@
 
     <div id="answer">
 
-      <div
-        id="answer-title"
-      ></div>
+      <div id="answer-title"></div>
 
-      <div
-        id="answer-artist"
-      ></div>
+      <div id="answer-artist"></div>
 
-      <div
-        id="answer-year"
-      ></div>
+      <div id="answer-year"></div>
 
+    </div>
+
+  </div>
+
+  <div
+    id="winner-panel"
+    class="hidden"
+  >
+
+    <div id="winner-title">
+      Round Winner
+    </div>
+
+    <div id="winner-name">
+      -
+    </div>
+
+    <div id="winner-streak">
+      🔥 0 STREAK
+    </div>
+
+    <div id="winner-points">
+      +0 POINTS
     </div>
 
   </div>
@@ -407,6 +527,26 @@
         "answer-year"
       );
 
+    const winnerPanelElement =
+      document.getElementById(
+        "winner-panel"
+      );
+
+    const winnerNameElement =
+      document.getElementById(
+        "winner-name"
+      );
+
+    const winnerStreakElement =
+      document.getElementById(
+        "winner-streak"
+      );
+
+    const winnerPointsElement =
+      document.getElementById(
+        "winner-points"
+      );
+
     const connectionElement =
       document.getElementById(
         "connection"
@@ -416,9 +556,14 @@
 
     let hideTimer = null;
 
+    let hideWinnerTimer = null;
+
     function showOverlay() {
       if (hideTimer) {
-        clearTimeout(hideTimer);
+        clearTimeout(
+          hideTimer
+        );
+
         hideTimer = null;
       }
 
@@ -429,7 +574,9 @@
 
     function hideOverlayAfterDelay() {
       if (hideTimer) {
-        clearTimeout(hideTimer);
+        clearTimeout(
+          hideTimer
+        );
       }
 
       hideTimer = setTimeout(
@@ -439,6 +586,53 @@
           );
 
           hideTimer = null;
+        },
+        7000
+      );
+    }
+
+    function showWinner() {
+      if (hideWinnerTimer) {
+        clearTimeout(
+          hideWinnerTimer
+        );
+
+        hideWinnerTimer = null;
+      }
+
+      winnerPanelElement.classList.remove(
+        "hidden"
+      );
+    }
+
+    function hideWinner() {
+      if (hideWinnerTimer) {
+        clearTimeout(
+          hideWinnerTimer
+        );
+
+        hideWinnerTimer = null;
+      }
+
+      winnerPanelElement.classList.add(
+        "hidden"
+      );
+    }
+
+    function hideWinnerAfterDelay() {
+      if (hideWinnerTimer) {
+        clearTimeout(
+          hideWinnerTimer
+        );
+      }
+
+      hideWinnerTimer = setTimeout(
+        () => {
+          winnerPanelElement.classList.add(
+            "hidden"
+          );
+
+          hideWinnerTimer = null;
         },
         7000
       );
@@ -483,18 +677,22 @@
         `${revealed}/${total}`;
     }
 
-    function calculateDisplayedPoints(
-      revealedCount
+    function updateYear(
+      year
     ) {
-      const revealed =
-        toSafeNumber(
-          revealedCount
-        );
+      if (
+        year === null ||
+        year === undefined ||
+        year === ""
+      ) {
+        yearElement.textContent =
+          "-";
 
-      return Math.max(
-        10,
-        100 - revealed * 10
-      );
+        return;
+      }
+
+      yearElement.textContent =
+        year;
     }
 
     function updateRoundState(
@@ -512,9 +710,9 @@
         state.maskedArtist ||
         "-";
 
-      yearElement.textContent =
-        state.year ||
-        "-";
+      updateYear(
+        state.year
+      );
 
       difficultyElement.textContent =
         state.difficulty
@@ -538,6 +736,7 @@
 
       if (state.active) {
         showOverlay();
+        hideWinner();
 
         statusElement.textContent =
           "Guess the song";
@@ -545,6 +744,39 @@
         messageElement.textContent =
           "Letters are being revealed...";
       }
+    }
+
+    function displayWinner(
+      winner
+    ) {
+      if (!winner) {
+        hideWinner();
+
+        return;
+      }
+
+      winnerNameElement.textContent =
+        winner.username ||
+        "Unknown";
+
+      const streak =
+        toSafeNumber(
+          winner.streak
+        );
+
+      const points =
+        toSafeNumber(
+          winner.points
+        );
+
+      winnerStreakElement.textContent =
+        `🔥 ${streak} STREAK`;
+
+      winnerPointsElement.textContent =
+        `+${points} POINTS`;
+
+      showWinner();
+      hideWinnerAfterDelay();
     }
 
     function handleMessage(
@@ -555,7 +787,8 @@
       }
 
       if (
-        message.type === "state"
+        message.type ===
+        "state"
       ) {
         updateRoundState(
           message.state
@@ -565,8 +798,13 @@
           message.state &&
           !message.state.active
         ) {
+          hideWinner();
+
           statusElement.textContent =
             "Waiting for a round";
+
+          difficultyElement.textContent =
+            "-";
 
           songElement.textContent =
             "Ready?";
@@ -574,8 +812,9 @@
           artistElement.textContent =
             "-";
 
-          yearElement.textContent =
-            "-";
+          updateYear(
+            null
+          );
 
           messageElement.textContent =
             "Start a round with !tune";
@@ -589,6 +828,7 @@
         "round_started"
       ) {
         showOverlay();
+        hideWinner();
 
         updateRoundState(
           message.state
@@ -607,7 +847,8 @@
       }
 
       if (
-        message.type === "timer"
+        message.type ===
+        "timer"
       ) {
         timerElement.textContent =
           `${toSafeNumber(
@@ -644,11 +885,6 @@
             `${toSafeNumber(
               message.maxPoints
             )}`;
-        } else {
-          pointsElement.textContent =
-            `${calculateDisplayedPoints(
-              message.revealedCount
-            )}`;
         }
 
         return;
@@ -681,63 +917,74 @@
 
         artistElement.textContent =
           message.artist ||
-          "";
-
-        yearElement.textContent =
-          message.year ||
           "-";
+
+        updateYear(
+          message.year
+        );
 
         pointsElement.textContent =
           "0";
 
         answerTitleElement.textContent =
-          message.answer || "";
+          message.answer ||
+          "";
 
         answerArtistElement.textContent =
-          message.artist || "";
+          message.artist ||
+          "";
+
+        updateYear(
+          message.year
+        );
 
         answerYearElement.textContent =
           message.year
-            ? `Year: ${message.year}`
+            ? `Released ${message.year}`
             : "";
 
         answerElement.style.display =
           "block";
 
+        /*
+         * Only a correct guess creates
+         * a round winner.
+         */
         if (
           message.reason ===
-          "all_letters_revealed"
+            "correct_guess" &&
+          message.winner
         ) {
           messageElement.textContent =
-            "All letters revealed!";
-        } else if (
-          message.reason ===
-          "correct_guess"
-        ) {
-          if (
+            `${message.winner.username} guessed it for ${message.winner.points} points!`;
+
+          displayWinner(
             message.winner
+          );
+        } else {
+          hideWinner();
+
+          if (
+            message.reason ===
+            "all_letters_revealed"
           ) {
             messageElement.textContent =
-              `${message.winner.username} guessed it for ${message.winner.points} points!`;
+              "All letters revealed!";
+          } else if (
+            message.reason ===
+            "skipped"
+          ) {
+            messageElement.textContent =
+              "Round skipped.";
           } else {
             messageElement.textContent =
-              "Correct guess!";
+              "Time's up!";
           }
-        } else if (
-          message.reason ===
-          "skipped"
-        ) {
-          messageElement.textContent =
-            "Round skipped.";
-        } else {
-          messageElement.textContent =
-            "Time's up!";
         }
 
         /*
-         * Keep the completed round visible for
-         * 7 seconds, then fade the entire overlay
-         * out over 1 second.
+         * Keep the completed round visible
+         * for 7 seconds before fading it out.
          */
         hideOverlayAfterDelay();
 
@@ -832,8 +1079,13 @@
         );
 
         if (!state.active) {
+          hideWinner();
+
           statusElement.textContent =
             "Waiting for a round";
+
+          difficultyElement.textContent =
+            "-";
 
           songElement.textContent =
             "Ready?";
@@ -841,8 +1093,9 @@
           artistElement.textContent =
             "-";
 
-          yearElement.textContent =
-            "-";
+          updateYear(
+            null
+          );
 
           messageElement.textContent =
             "Start a round with !tune";
